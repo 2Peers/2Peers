@@ -2,9 +2,9 @@ DROP TABLE IF EXISTS subjects;
 DROP TABLE IF EXISTS teachers;
 DROP TABLE IF EXISTS students;
 DROP TABLE IF EXISTS classes;
-DROP TABLE IF EXISTS class-members;
-DROP TABLE IF EXISTS student-messages;
-DROP TABLE IF EXISTS teacher-messages;
+DROP TABLE IF EXISTS classMembers;
+DROP TABLE IF EXISTS studentMessages;
+DROP TABLE IF EXISTS teacherMessages;
 
 CREATE TABLE subjects (
     id SERIAL PRIMARY KEY,
@@ -36,7 +36,7 @@ CREATE TABLE classes (
     class-code TEXT
 );
 
-CREATE TABLE class-members (
+CREATE TABLE classMembers (
     id SERIAL PRIMARY KEY,
     student int,
     self-rating int,
@@ -44,7 +44,7 @@ CREATE TABLE class-members (
     FOREIGN KEY (student) REFERENCES students(id)
 );
 
-CREATE TABLE student-messages (
+CREATE TABLE studentMessages (
     id SERIAL PRIMARY KEY,
     student int,
     class int, 
@@ -55,7 +55,7 @@ CREATE TABLE student-messages (
     FOREIGN KEY (class) REFERENCES classes(id)
 );
 
-CREATE TABLE teacher-messages (
+CREATE TABLE teacherMessages (
     id SERIAL PRIMARY KEY,
     teacher int,
     class int, 
