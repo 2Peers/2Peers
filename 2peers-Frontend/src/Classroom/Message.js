@@ -8,7 +8,7 @@ export default function Message(props){
             </div>
             <div className="message-content">
                 <div className="message-composer">
-                    Temp
+                    Name
                 </div>
                 <div className="message-txt">
                     Message text
