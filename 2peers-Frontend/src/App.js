@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import logo from './logo.svg';
 import './App.css';
+import Message from './Classroom/Message';
+import Navbar from './Reusable/Navbar'
 
 function App() {
   const [data, setData] = useState(null);
