@@ -1,23 +1,56 @@
-# 2Peers #
+# 2Peers
 
-## Heading ##
-  > 2Peers is a web application that serves to foster a community where peers build off one anothers knowledge and improve their overall understanding of subjects.
+> 2Peers is an application that seeks to promote peer to peer learning through the use of self assessment and peer assessments on subjects to develop a better level of understanding on a specific topic.
 
-## Sub-Heading ##
-  > 2Peers is marketed to teacher for the use of improving peer to peer learning.
+## Team
 
-## Summary ##
-  > The product we will be building is a web application designed to help students communicate with each other. The goal is to help students better understand subjects by having them teach each other. The benefit of doing this is that students will have the ability to communicate with each other and deepen their understanding on subjects. Sometimes it is easier to understand something when a classmate explains it in a different way than the teacher. 
+  - __Product Owner__: Jason Alvarez (jalvarez2016)
+  - __Scrum Master__: Itzel Rendon (Itzel01)
+  - __Development Team Members__: Andrea Young (dreayoung)
 
-## Problem ##
-  > The target audience is anyone who is in school or in a learning program. It is for teachers to have students engage with each other. The problem being the lack of peer learning due to this covid world. Many students aren't able to understand their classes due to the lack of a classroom setting. Students also aren't able to really talk to each other via zoom. 
+## Table of Contents
 
-## Solution ##
-  > Our product solves the problem expressed above by simulating a classroom setting. Not only will students be able to help each other and learn from each other we will also provide extra resources to help students learn on their own and then help one another. 
+1. [Usage](#Usage)
+1. [Requirements](#requirements)
+1. [Development](#development)
+    1. [Installing Dependencies](#installing-dependencies)
+    1. [Tasks](#tasks)
+1. [Team](#team)
+1. [Contributing](#contributing)
+
+## Usage
+
+> Some usage instructions for getting the app up and running locally
+
+## Requirements
+
+- Node 12.16.1
+- Postgresql 10.16
+
+## Development
+
+### Installing Dependencies
+
+From within the root directory:
+
+```sh
+    $ cd 2Peers-Backend
+    $ npm i
+    $ cd ../2peers-Frontend/
+    $ npm i
+    $ npm start
+```
+
+### Roadmap
+
+View the project roadmap [here](https://github.com/orgs/2Peers/projects/1).
 
 
-## Key Technical Challenge ##
-  > The most challenging and techincal hurdles we must overcome to successfully fufill the needs of our app is figuring out the best way to make data accessible for students and teachers.
+## Contributing
 
-## Extension Opportunities ##
-  > To make our app more secure and verifed, we plan on having a mandatory test that will need to be completed in order for a teacher to successfully create an account. We also plan on adding an edit profile feature for students and teachers.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+
+## Style Guide
+
+This project adheres to the [Airbnb Style Guide](https://github.com/airbnb/javascript).
