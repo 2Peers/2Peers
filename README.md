@@ -48,7 +48,7 @@ View the project roadmap [here](https://github.com/orgs/2Peers/projects/1).
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+See [CONTRIBUTING.md](https://github.com/2Peers/2Peers/blob/main/CONTRIBUTING.md) for contribution guidelines.
 
 
 ## Style Guide
