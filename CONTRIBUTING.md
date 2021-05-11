@@ -3,23 +3,21 @@
 ## General Workflow
 
 1. Fork the repo
-2. Cut a namespaced feature branch from master
+2. Create a new branch from main or master and use one of the following prefixes
   - bug/...
   - feat/...
   - test/...
   - doc/...
   - refactor/...
-3. Make commits to your feature branch. Prefix each commit like so:
-  - (feat) Added a new feature
-  - (fix) Fixed inconsistent tests [Fixes #0]
-  - (refactor) ...
-  - (cleanup) ...
-  - (test) ...
-  - (doc) ...
+3. Make commits to your feature branch. Be specific in your commit message like so:
+  - Added a new feature [name of feature]
+  - Fixed inconsistent tests
+  - refactored [name of function/feature]
+  - Added a test to [describe test]
 4. When you've finished with your fix or feature, rebase upstream changes into your branch. Submit a [pull request][] directly to the master branch. Include a description of your changes.
-5. Your pull request will be reviewed by another maintainer. The point of code reviews is to help keep the codebase clean and of high quality and, equally as important, to help you grow as a programmer. If your code reviewer requests you make a change you don't understand, ask them why.
+5. Your pull request will be reviewed by another team member. Code reviews are to help keep the codebase stay clean, consistent and of high quality. Code reviews are also to help you grow as a programmer so, if your code reviewer requests you make a change you don't understand, ask them why.
 6. Fix any issues raised by your code reviwer, and push your fixes as a single new commit.
-7. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
+7. Once the pull request has been reviewed and approved by the reviewer, it will be merged onto the master or main codebase. Do not merge your own commits.
 
 ## Detailed Workflow
 
@@ -31,16 +29,15 @@ Use Github’s web interface to make a fork of the repo, then add that repo as a
 git remote add upstream https://github.com/2Peers/2Peers.git
 ```
 
-### Cut a namespaced feature branch from master
+### Create a new branch from main or master and use one of the following prefixes:
 
-Your branch should follow this naming convention:
   - bug/...
   - feat/...
   - test/...
   - doc/...
   - refactor/...
 
-These commands will help you do this:
+Command to make a new branch:
 
 ``` bash
 
@@ -50,13 +47,11 @@ git checkout -b `your-branch-name`
 
 ### Make commits to your feature branch. 
 
-Prefix each commit like so
-  - (feat) Added a new feature
-  - (fix) Fixed inconsistent tests [Fixes #0]
-  - (refactor) ...
-  - (cleanup) ...
-  - (test) ...
-  - (doc) ...
+Be specific in your commit message like so:
+  - Added a new feature [name of feature]
+  - Fixed inconsistent tests
+  - refactored [name of function/feature]
+  - Added a test to [describe test]
 
 Make changes and commits on your branch, and make sure that you
 only make changes that are relevant to this branch. If you find
@@ -65,11 +60,11 @@ changes.
 
 #### Commit Message Guidelines
 
-- Commit messages should be written in the present tense; e.g. "Fix continuous
+- Commit messages should be written in the past tense; e.g. "Fixed continuous
   integration script".
 - The first line of your commit message should be a brief summary of what the
   commit changes. Aim for about 70 characters max. Remember: This is a summary,
-  not a detailed description of everything that changed.
+  not a detailed description of everything that changed!
 - If you want to explain the commit in more depth, following the first line should
   be a blank line and then a more detailed description of the commit. This can be
   as detailed as you want, so dig into details here and keep the first line short.
