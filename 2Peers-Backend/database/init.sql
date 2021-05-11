@@ -50,7 +50,7 @@ CREATE TABLE studentMessages (
     class int, 
     message TEXT,
     messageRating int, 
-    date now(),
+    date TIMESTAMP WITH TIME ZONE,
     FOREIGN KEY (student) REFERENCES students(id),
     FOREIGN KEY (class) REFERENCES classes(id)
 );
@@ -61,7 +61,7 @@ CREATE TABLE teacherMessages (
     class int, 
     message TEXT,
     messageRating int, 
-    date now(),
+    date TIMESTAMP WITH TIME ZONE,
     FOREIGN KEY (teacher) REFERENCES teachers(id),
     FOREIGN KEY (class) REFERENCES classes(id)
 );
