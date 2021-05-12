@@ -5,7 +5,7 @@ export default function Profile() {
 
   return (
     <div className="profile-container rounded overflow-hidden shadow-lg max-w-sm w-full lg:flex m-1">
-      <div className="prof-img text-sm text-gray-600 flex items-center">
+      <div className="prof-img text-m text-gray-600 flex items-center">
         <img src="" alt="Profile" />
       </div>
       <div className="user-content text-gray-900 font-bold text-xl mb-2 pl-8 flex-col justify-start">
