@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import logo from './logo.svg';
 import './App.css';
+import Footer from './context/Footer'
 
 function App() {
   const [data, setData] = useState(null);
@@ -18,6 +19,7 @@ function App() {
       <img src={logo} className="App-logo" alt="logo" />
       <p>{data ? data : "Loading..."}</p>
     </header>
+    <Footer />
   </div>
   );
 }
