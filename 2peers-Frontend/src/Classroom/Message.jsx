@@ -4,8 +4,8 @@ export default function Message() {
   // const {name, email, message} = props;
 
   return (
-    <div className="message">
-      <div className="rating">
+    <div className="message rounded overflow-hidden shadow-lg max-w-xs w-1/6">
+      <div className="rating w-full">
         ★★★★☆
       </div>
       <div className="message-content">

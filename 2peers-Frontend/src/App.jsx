@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-// import Classroom from './Classroom/Classroom';
+import Classroom from './Classroom/Classroom';
 // import Student from './Student/Student';
 // import EditStudent from './Student/EditStudent';
-import EditTeacher from './Teacher/EditTeacher';
+// import EditTeacher from './Teacher/EditTeacher';
 // import Navbar from './Reusable/Navbar';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>{data || 'Loading...'}</p>
       </header>
-      <EditTeacher />
+      <Classroom />
     </div>
   );
 }
