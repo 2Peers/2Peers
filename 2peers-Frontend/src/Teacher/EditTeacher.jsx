@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 
-export default function EditStudent() {
+export default function EditTeacher() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  function sendEditedStudent(e) {
+  function sendEditedTeacher(e) {
     e.preventDefault();
   }
 
   return (
-    <div className="editStudentPage">
-      <h1>Editing Student Page</h1>
-      <div className="student-info flex justify-center">
-        <form className="w-9/12 flex flex-wrap flex-col" onSubmit={sendEditedStudent}>
+    <div className="editTeacherPage">
+      <h1>Editing Teacher Page</h1>
+      <div className="teacher-info flex justify-center">
+        <form className="w-9/12 flex flex-wrap flex-col" onSubmit={sendEditedTeacher}>
           <label
             htmlFor="name"
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 flex flex-wrap mb-6"
@@ -28,7 +28,7 @@ export default function EditStudent() {
             />
           </label>
           <label
-            htmlFor="email"
+            htmlFor="name"
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 flex flex-wrap mb-6"
           >
             <p className="mb-5">Email</p>

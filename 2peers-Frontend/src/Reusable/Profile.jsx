@@ -9,7 +9,8 @@ export default function Profile() {
         <img src="" alt="Profile" />
       </div>
       <div className="user-content text-gray-900 font-bold text-xl mb-2 pl-8 flex-col justify-start">
-        <div className="user-name py-2">Name</div>
+        <div className="user-name pt-7 text-left pl-2">Name</div>
+        <div className="user-email font-light text-gray-400 text-sm text-left pl-2">E-mail</div>
         <div className="user-btns py-2">
           <button className="bg-green-400 hover:bg-green-500 p-1 px-2 rounded text-white m-1" type="button">Edit</button>
           <button className="bg-green-400 hover:bg-green-500 p-1 px-2 rounded text-white m-1" type="button">Delete</button>
