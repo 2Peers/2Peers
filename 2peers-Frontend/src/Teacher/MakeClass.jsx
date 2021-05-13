@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
 export default function MakeClass() {
   const [code, setCode] = useState('');
-  const { id } = useParams();
+  // const { id } = useParams();
 
   function preventDefault(e) {
     e.preventDefault();
     const options = {
-      header: {
+      headers: {
         'Content-Type': 'application/json',
       },
       method: 'POST',
@@ -17,7 +17,7 @@ export default function MakeClass() {
 
     // console.log(`${window.location.origin}/teachers/${id}/classes`);
     // http://localhost:8000/teachers/1/classes
-    fetch(`http://localhost:8000/teachers/${id}/classes`, options);
+    fetch('http://localhost:3000/teachers/1/classes', options);
   }
 
   return (
