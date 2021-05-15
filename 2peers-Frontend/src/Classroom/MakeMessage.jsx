@@ -1,11 +1,27 @@
 import { React, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function MakeMessage() {
   const [message, setMessage] = useState('');
+  const { id } = useParams();
 
   function sendMessage(e) {
     e.preventDefault();
+
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        message,
+        messgaerating: 0,
+        class: id,
+      }),
+    };
     // make a post request
+
+    fetch('/student/1/classroom', options);
   }
 
   return (
