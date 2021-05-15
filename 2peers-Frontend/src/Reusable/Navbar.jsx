@@ -1,11 +1,13 @@
-function NavBar (){
-    //add styling later, should be: pfp| linkToProfile
-    return(
+import React from 'react';
+
+function NavBar() {
+  // add styling later, should be: pfp| linkToProfile
+  return (
     <div>
-        <img src="#"></img>
-        <a href="#"> Profile </a> 
+      <img src="/" alt="logo" />
+      <a href="/"> Profile </a>
     </div>
-    )
+  );
 }
 
-export default NavBar
+export default NavBar;
