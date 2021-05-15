@@ -1,15 +1,17 @@
-export default function Profile(props){
-    //const {name, email} = props;
+import React from 'react';
 
-    return (
-        <div className="profile-container">
-            <div className="prof-img">
-                <img src="" alt="Profile"/>
-            </div>
-            <div className="user-btns">
-                <button>Edit</button>
-                <button>Delete</button>
-            </div>
-        </div>
-    )
+export default function Profile() {
+  // const {name, email} = props;
+
+  return (
+    <div className="profile-container">
+      <div className="prof-img">
+        <img src="" alt="Profile" />
+      </div>
+      <div className="user-btns">
+        <button type="button">Edit</button>
+        <button type="button">Delete</button>
+      </div>
+    </div>
+  );
 }
