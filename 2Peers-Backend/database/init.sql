@@ -11,6 +11,8 @@ CREATE TABLE subjects (
     name TEXT
 );
 
+INSERT INTO subjects (name) VALUES ('MATHHHHH');
+
 CREATE TABLE teachers (
     id SERIAL PRIMARY KEY,
     name TEXT, 
@@ -19,8 +21,11 @@ CREATE TABLE teachers (
     subject int, 
     encryptedPassword TEXT,
     archived BOOLEAN,
-    FOREIGN KEY (subject) REFERENCES subjects(id)
+    FOREIGN KEY (subject) REFERENCES subjects(id) ON DELETE CASCADE
 );
+
+INSERT INTO teachers (name, email, profilePic, subject, encryptedPassword, archived)
+VALUES ('math teacher', 'math@email.com', '#', 1, 'password', FALSE);
 
 CREATE TABLE students (
     id SERIAL PRIMARY KEY,
@@ -33,9 +38,9 @@ CREATE TABLE students (
 
 CREATE TABLE classes (
     id SERIAL PRIMARY KEY,
-    classCode TEXT,
-    teacher int,
-    FOREIGN KEY (teacher) REFERENCES teachers(id)
+    teacher_id int,
+    FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE CASCADE,
+    classcode TEXT
 );
 
 CREATE TABLE classMembers (
@@ -43,7 +48,7 @@ CREATE TABLE classMembers (
     student int,
     selfRating int,
     peerRating int,
-    FOREIGN KEY (student) REFERENCES students(id)
+    FOREIGN KEY (student) REFERENCES students(id) ON DELETE CASCADE
 );
 
 CREATE TABLE studentMessages (
@@ -53,8 +58,8 @@ CREATE TABLE studentMessages (
     message TEXT,
     messageRating int, 
     date TIMESTAMP WITH TIME ZONE,
-    FOREIGN KEY (student) REFERENCES students(id),
-    FOREIGN KEY (class) REFERENCES classes(id)
+    FOREIGN KEY (student) REFERENCES students(id) ON DELETE CASCADE,
+    FOREIGN KEY (class) REFERENCES classes(id) ON DELETE CASCADE
 );
 
 CREATE TABLE teacherMessages (
@@ -64,8 +69,8 @@ CREATE TABLE teacherMessages (
     message TEXT,
     messageRating int, 
     date TIMESTAMP WITH TIME ZONE,
-    FOREIGN KEY (teacher) REFERENCES teachers(id),
-    FOREIGN KEY (class) REFERENCES classes(id)
+    FOREIGN KEY (teacher) REFERENCES teachers(id) ON DELETE CASCADE,
+    FOREIGN KEY (class) REFERENCES classes(id) ON DELETE CASCADE
 );
 
 INSERT INTO subjects (name) VALUES ('math');

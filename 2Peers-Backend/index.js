@@ -1,8 +1,11 @@
 const express = require('express');
+const teacherRouter = require('./routes/teacherRouter');
 
 const PORT = process.env.PORT || 8000;
 
 const app = express();
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -18,3 +21,4 @@ app.use('/student', studentRouter);
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
+app.use('/teachers', teacherRouter);
