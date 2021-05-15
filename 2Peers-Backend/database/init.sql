@@ -79,4 +79,4 @@ INSERT INTO students (name, email, profilePic, encryptedPassword, archived) VALU
 INSERT INTO classes (classCode, teacher) VALUES ('abc123', 1);
 INSERT INTO classMembers (student, selfRating, peerRating) VALUES (1, 5, 3);
 INSERT INTO studentMessages (student, class, message, messageRating, date) VALUES (1, 1, 'Some Message', 3, now());
-INSERT INTO teacherMessages (student, class, message, messageRating, date) VALUES (1, 1, 'Some Message', 3, now());
+INSERT INTO teacherMessages (teacher, class, message, messageRating, date) VALUES (1, 1, 'Some Message', 3, now());
