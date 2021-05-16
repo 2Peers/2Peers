@@ -15,13 +15,14 @@ export default function MakeMessage() {
       method: 'POST',
       body: JSON.stringify({
         message,
-        messgaerating: 0,
+        messagerating: 0,
         class: id,
       }),
     };
     // make a post request
-
-    fetch('/student/1/classroom', options);
+    // Once the sign in logic is merged in, replace the 1
+    // in the fetch request below with the student id
+    fetch('http://localhost:3000/student/1/message', options);
   }
 
   return (
