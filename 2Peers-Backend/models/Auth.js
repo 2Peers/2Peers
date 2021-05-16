@@ -7,7 +7,7 @@ class Auth {
     const archived = false;
 
     return db.query(
-      queryStudent, [body.name, body.email, studentPic, body.encryptedpassword, archived],
+      queryStudent, [body.name, body.email, studentPic, body.password, archived],
     );
   }
 
@@ -17,7 +17,7 @@ class Auth {
     const archived = false;
 
     return db.query(
-      queryTeacher, [body.name, body.email, teacherPic, body.encryptedpassword, archived],
+      queryTeacher, [body.name, body.email, teacherPic, body.password, archived],
     );
   }
 }
