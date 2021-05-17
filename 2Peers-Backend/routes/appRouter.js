@@ -5,12 +5,12 @@ const { Auth } = require('../models/Auth');
 const router = express.Router();
 const studentRouter = require('./studentRouter');
 const teacherRouter = require('./teacherRouter');
+const classroomRouter = require('./classroomRouter');
 // const bcrypt = require('bcrypt');
 
 router.get('/api', (req, res) => {
   res.send({ message: 'Heyyyyyyyyy' });
 });
-
 
 // // made a change to the route from /api/signup
 // router.post('/signup', (req, res) => {
@@ -42,5 +42,6 @@ router.post('/signup', (req, res) => {
 
 router.use('/student', studentRouter);
 router.use('/teachers', teacherRouter);
+router.use('/classrooms', classroomRouter);
 
 module.exports = router;
