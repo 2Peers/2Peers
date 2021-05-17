@@ -24,9 +24,9 @@ router.get('/api', (req, res) => {
 //     // res.send({ message: 'teacher successfully signed up' });
 //     res.redirect('/login');
 //   }
-// });
-// made a change to the route from /api/signup
-router.post('/signup', (req, res) => {
+// })
+//made a change to the route from /api/signup
+router.post('/signUp', (req, res) => {
   if (req.body.remember_me) {
     debugger
     Auth.teacherSignUp(req.body);
