@@ -4,6 +4,6 @@ const router = express.Router();
 const classroomController = require('../controllers/classroomController');
 
 router.get('/:id', classroomController.getClass);
-// router.get('');
+router.get('/:id/members');
 
 module.exports = router;
