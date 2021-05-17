@@ -45,9 +45,11 @@ CREATE TABLE classes (
 
 CREATE TABLE classMembers (
     id SERIAL PRIMARY KEY,
+    class_id int,
     student int,
     selfRating int,
     peerRating int,
+    FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE,
     FOREIGN KEY (student) REFERENCES students(id) ON DELETE CASCADE
 );
 

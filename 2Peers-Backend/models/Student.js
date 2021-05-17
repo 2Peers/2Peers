@@ -12,6 +12,15 @@ class Student {
     return db.query(queryText, [Number(id), Number(details.class), message, Number(messagerating)])
       .then((results) => results.rows[0]);
   }
+
+  static joinClass(classId, id) {
+    // classId is a classes primary key and should be the classes the
+    // student intends to join.
+    // id is the student primary of the student which intends to join a class
+    // Does not return anything
+    const queryText = 'INSERT INTO classmembers (class_id, student, selfRating, peerRating) VALUES ($1, $2, 0, 0);';
+    return db.query(queryText, [Number(classId), id]);
+  }
 }
 
 module.exports = { Student };

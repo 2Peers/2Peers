@@ -10,10 +10,28 @@ const addMessage = async (req, res) => {
     res.status(201).json(newMessage);
   } catch {
     // if new message could not be created, status of 404 should appear.
-    res.status(404);
+    res.sendStatus(404);
+  }
+};
+
+const joinClass = async (req, res) => {
+  // id is meant to represent the class you intend to join through a specific classes
+  // primary key.
+  // user is the current user who is signed in.
+  // --- POTENTIAL WARNING ---
+  // Once user is stored in session, double
+  // check that the users id is stored in the key 'id'.
+  const { id } = req.params;
+  const { user } = req.session;
+  try {
+    await Student.joinClass(id, user.id);
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(500);
   }
 };
 
 module.exports = {
   addMessage,
+  joinClass,
 };

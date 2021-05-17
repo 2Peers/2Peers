@@ -4,5 +4,6 @@ const router = express.Router();
 const studentController = require('../controllers/studentController');
 // route to post a new message from a student
 router.post('/:id/message', studentController.addMessage);
+router.post('/:id/join', studentController.joinClass);
 
 module.exports = router;
