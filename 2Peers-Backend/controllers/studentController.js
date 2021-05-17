@@ -15,16 +15,15 @@ const addMessage = async (req, res) => {
 };
 
 const joinClass = async (req, res) => {
-  // id is meant to represent the class you intend to join through a specific classes
-  // primary key.
-  // user is the current user who is signed in.
-  // --- POTENTIAL WARNING ---
-  // Once user is stored in session, double
-  // check that the users id is stored in the key 'id'.
-  const { id } = req.params;
-  const { user } = req.session;
+  // id is meant to represent the student who intends to join a class
+  // code refers to the classroom code that is user provided and used to
+  // find the class the student wants to join
+  const { code } = req.body;
+  // const { id } = req.params;
+
   try {
-    await Student.joinClass(id, user.id);
+    const classId = ''; // make this an await Classroom.findClassByCode(code);
+    await Student.joinClass(classId, code);
     res.sendStatus(200);
   } catch {
     res.sendStatus(500);
