@@ -28,8 +28,24 @@ const getClassMembers = async (req, res) => {
   }
 };
 
+const getClassMessages = async (req, res) => {
+  try {
+    const studentMessages = await Classroom.getStudentClassMessages(req.params.id);
+    const teacherMessages = await Classroom.getTeacherClassMessages(req.params.id);
+    const orderedMessages = [...studentMessages, ...teacherMessages].sort((a, b) => {
+      const aDate = new Date(a.date);
+      const bDate = new Date(b.date);
+      return aDate - bDate;
+    });
+    res.status(200).json(orderedMessages);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   getClass,
   getClasses,
   getClassMembers,
+  getClassMessages,
 };

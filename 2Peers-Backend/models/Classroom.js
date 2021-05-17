@@ -15,6 +15,16 @@ class Classroom {
     const queryText = 'SELECT * FROM classmembers WHERE class_id = $1';
     return db.query(queryText, [id]).then((results) => results.rows);
   }
+
+  static getStudentClassMessages(id) {
+    const queryText = 'SELECT * FROM classes INNER JOIN studentmessages on classes.id = studentmessages.class WHERE classes.id = $1';
+    return db.query(queryText, [id]).then((results) => results.rows);
+  }
+
+  static getTeacherClassMessages(id) {
+    const queryText = 'SELECT * FROM classes INNER JOIN teachermessages on classes.id = teachermessages.class WHERE classes.id = $1';
+    return db.query(queryText, [id]).then((results) => results.rows);
+  }
 }
 
 module.exports = { Classroom };
