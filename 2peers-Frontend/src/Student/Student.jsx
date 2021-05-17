@@ -6,7 +6,7 @@ export default function Student() {
   return (
     <div className="grid justify-items-center">
       <Profile />
-      <Classlist />
+      <Classlist isStudent />
     </div>
   );
 }

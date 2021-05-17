@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 // import { useParams } from 'react-router-dom';
 import TwoPeersContext from '../context/TwoPeersContext';
 
-export default function MakeClass() {
+export default function MakeClass({ isStudent }) {
   const [code, setCode] = useState('');
   // const { id } = useParams();
   const {
@@ -19,15 +19,18 @@ export default function MakeClass() {
       body: JSON.stringify({ code }),
     };
 
-    // console.log(`${window.location.origin}/teachers/${id}/classes`);
-    // http://localhost:8000/teachers/1/classes
+    if (isStudent) {
+      fetch('http://localhost:3000/students/1/classes', options);
+      return;
+    }
+
     fetch('http://localhost:3000/teachers/1/classes', options);
   }
 
   return (
     <div className="form-container w-full fixed z-10 inset-0 overflow-y-auto flex justify-center items-center">
-      <form onSubmit={(e) => { preventDefault(e); }} className="shadow-md rounded flex flex-col">
-        <h1 className="p-3 font-bold">Make a new Class</h1>
+      <form onSubmit={(e) => { preventDefault(e); }} className="shadow-md rounded flex flex-col bg-white shadow-2xl">
+        <h1 className="p-3 font-bold block text-center">Make a new Class</h1>
         <label htmlFor="code" className="p-3 text-gray-500">
           Code
           <input
@@ -37,14 +40,24 @@ export default function MakeClass() {
             onChange={({ target }) => setCode(target.value)}
           />
         </label>
-        <input
-          type="submit"
-          readOnly
-          value="Submit"
-          className="shadow bg-green-400 hover:bg-green-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-2 rounded mx-2 mb-2"
-        />
-        <button onClick={() => displaySwitch(false)} type="button">Close</button>
+        <div className="flex justify-center items-center">
+          <input
+            type="submit"
+            readOnly
+            value="Submit"
+            className="shadow bg-green-400 hover:bg-green-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-2 rounded mx-2 mb-2"
+          />
+          <button onClick={() => displaySwitch(false)} type="button" className="shadow bg-green-400 hover:bg-green-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-2 rounded mx-2 mb-2">Close</button>
+        </div>
       </form>
     </div>
   );
 }
+
+MakeClass.propTypes = {
+  isStudent: Boolean,
+};
+
+MakeClass.defaultProps = {
+  isStudent: false,
+};
