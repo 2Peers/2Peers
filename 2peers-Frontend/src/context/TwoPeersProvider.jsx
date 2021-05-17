@@ -3,6 +3,8 @@ import Axios from 'axios';
 import TwoPeersContext from './TwoPeersContext';
 
 function TwoPeersProvider({ children }) {
+  const [toggleModal, displaySwitch] = useState(null);
+
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -25,6 +27,8 @@ function TwoPeersProvider({ children }) {
   }
 
   const values = {
+    displaySwitch,
+    toggleModal,
     data,
     setData,
     userName,

@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 // import { useParams } from 'react-router-dom';
+import TwoPeersContext from '../context/TwoPeersContext';
 
 export default function MakeClass() {
   const [code, setCode] = useState('');
   // const { id } = useParams();
+  const {
+    displaySwitch,
+  } = useContext(TwoPeersContext);
 
   function preventDefault(e) {
     e.preventDefault();
@@ -39,6 +43,7 @@ export default function MakeClass() {
           value="Submit"
           className="shadow bg-green-400 hover:bg-green-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-2 rounded mx-2 mb-2"
         />
+        <button onClick={() => displaySwitch(false)} type="button">Close</button>
       </form>
     </div>
   );
