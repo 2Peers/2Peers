@@ -4,14 +4,12 @@ const { Teacher } = require('../models/Teacher');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
-router.get('/api', (req, res) => {
-  res.send({ message: 'Heyyyyyyyyy' });
-});
+let userSess = {user: ''};
 
 router.post('/api/signup', async (req, res) => {
   try {
     if (req.body.checkbox === 'on') {
-      bcrypt.hash(req.body.encryptedpassword, 10, (err, hash) => {
+      await bcrypt.hash(req.body.encryptedpassword, 10, (err, hash) => {
         if(err){
           res.send({ message: 'error' });
         }
@@ -19,18 +17,19 @@ router.post('/api/signup', async (req, res) => {
             req.body.encrypt = hash;
             Teacher.signUp(req.body);
             res.send({ message: 'signed up as a teacher' })
+            res.redirect('/login')
         }
       });
     } 
     else {
-      bcrypt.hash(req.body.encryptedpassword, 10, (err, hash) => {
+      await bcrypt.hash(req.body.encryptedpassword, 10, (err, hash) => {
         if(err){
             res.send({ message: 'error' });
         }
         else {
             req.body.encrypt = hash;
             Student.signUp(req.body);
-            res.render({ message: 'signed up as a student' })
+            res.redirect('/login')
         }
       });
     }
@@ -41,25 +40,31 @@ router.post('/api/signup', async (req, res) => {
 });
 
 router.post('/api/signin', async (req, res) => {
-  debugger;
   const { encryptedpassword } = req.body;
   try {
     if (req.body.checkbox === 'on') {
       let user = await Teacher.getTeacher(req.body);
+      userSess.user = user
       if(user){
         let results = await bcrypt.compare(encryptedpassword, user.encryptedpassword);
         if(results){
           req.session.user = user
           req.body.valid = true;
+          userSess.valid = true;
+          userSess.checkbox = 'on'
         }
       }
     } 
     else {
       let user = await Student.getStudent(req.body);
+      userSess.user = user
       if(user){
         let results = await bcrypt.compare(encryptedpassword, user.encryptedpassword);
           if(results){
           req.session.user = user
+          req.body.valid = true;
+          userSess.valid = true;
+          userSess.checkbox = 'off'
         }
       }
     }
@@ -67,6 +72,10 @@ router.post('/api/signin', async (req, res) => {
   catch (error) {
     res.send({ message: 'total err'})
   }
+});
+
+router.get('/api', (req, res) => {
+  res.send({ passedData: userSess });
 });
 
 module.exports = router;

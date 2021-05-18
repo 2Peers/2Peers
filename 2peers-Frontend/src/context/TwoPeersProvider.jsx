@@ -9,9 +9,10 @@ function TwoPeersProvider({ children }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    Axios.get('/api')
-      .then((message) => setData(message.data));
-  });
+    fetch('/api')
+      .then((res) => res.json())
+      .then((fetchData) => setData(fetchData.passedData));
+  }, []);
 
   const [userName, setName] = useState('');
   const [userEmail, setEmail] = useState('');
@@ -19,8 +20,7 @@ function TwoPeersProvider({ children }) {
   const [checkbox, setCheck] = useState('');
   const [valid, setValid] = useState(false);
 
-  function SignUp(e) {
-    e.preventDefault();
+  function SignUp() {
     Axios.post('api/signup', {
       name: userName,
       email: userEmail,
@@ -29,8 +29,7 @@ function TwoPeersProvider({ children }) {
     });
   }
 
-  function SignIn(e) {
-    e.preventDefault();
+  function SignIn() {
     Axios.post('/api/signin', {
       email: userEmail,
       encryptedpassword: userPassword,
