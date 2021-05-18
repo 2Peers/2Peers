@@ -1,23 +1,25 @@
+import PropTypes from 'prop-types';
 import { React, useState } from 'react';
 
-export default function EditMessage() {
-  const [messageTxt, setMessageTxt] = useState('thin...');
+export default function EditMessage({ text, submission }) {
+  const [messageTxt, setMessageTxt] = useState(text);
 
   function patchMessage(e) {
-    console.log(e.target);
+    e.preventDefault();
+    submission();
   }
 
   return (
-    <div className="modal-container w-full fixed z-10 inset-0 overflow-y-auto flex justify-center items-center">
+    <div className="modal-container w-full cursor-default fixed z-10 inset-0 overflow-y-auto flex justify-center items-center">
       <div className="edit-modal ">
         <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={patchMessage}
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         >
           <label
             htmlFor="message"
           >
-            Message
+            Editing Message
             <br />
             <input
               name="message"
@@ -27,14 +29,26 @@ export default function EditMessage() {
             />
           </label>
           <br />
-          <input
-            type="submit"
-            readOnly
-            value="submit"
-            className="bg-green-500 text-white font-bold uppercase py-2 px-4 rounded w-full my-2"
-          />
+          <label htmlFor="submission">
+            <input
+              name="submission"
+              type="submit"
+              value="submit"
+              className="bg-green-500 text-white font-bold uppercase py-2 px-4 rounded w-full my-2"
+            />
+          </label>
         </form>
       </div>
     </div>
   );
 }
+
+EditMessage.propTypes = {
+  text: PropTypes.string,
+  submission: PropTypes.func,
+};
+
+EditMessage.defaultProps = {
+  text: null,
+  submission: null,
+};
