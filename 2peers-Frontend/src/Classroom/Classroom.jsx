@@ -11,7 +11,7 @@ function Classroom() {
   const [classHeading, setClassHeading] = useState('');
   const [messages, setMessages] = useState([]);
 
-  function getMessages() {
+  const getMessages = () => {
     Axios.get(`/classrooms/${id}`)
       .then(({ data }) => {
         setClassHeading(data.classcode);
@@ -20,10 +20,16 @@ function Classroom() {
       .then(({ data }) => {
         setMessages(data);
       });
-  }
+  };
+
+  const checkMessages = () => {
+    getMessages();
+    setTimeout(checkMessages, 60000);
+  };
 
   useEffect(async () => {
     getMessages();
+    checkMessages();
   }, [id]);
 
   return (
