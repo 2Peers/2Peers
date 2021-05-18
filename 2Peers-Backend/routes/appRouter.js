@@ -25,15 +25,13 @@ router.get('/api', (req, res) => {
 //     res.redirect('/login');
 //   }
 // })
-//made a change to the route from /api/signup
+// made a change to the route from /api/signup
 router.post('/signUp', (req, res) => {
   if (req.body.remember_me) {
-    debugger
     Auth.teacherSignUp(req.body);
     // res.send({ message: 'student successfully signed up' });
     res.redirect('/login');
   } else {
-    debugger
     Auth.studentSignUp(req.body);
     // res.send({ message: 'teacher successfully signed up' });
     res.redirect('/login');

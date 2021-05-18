@@ -16,10 +16,17 @@ export default function Classlist({ isStudent }) {
   const [classrooms, setClassrooms] = useState([]);
 
   useEffect(async () => {
-    Axios.get(`/student/${id}/classes`)
-      .then(({ data }) => {
-        setClassrooms(data);
-      });
+    if (isStudent) {
+      Axios.get(`/student/${id}/classes`)
+        .then(({ data }) => {
+          setClassrooms(data);
+        });
+    } else {
+      Axios.get(`/teachers/${id}/classes`)
+        .then(({ data }) => {
+          setClassrooms(data);
+        });
+    }
   }, [id]);
 
   return (
@@ -32,8 +39,8 @@ export default function Classlist({ isStudent }) {
       <div className="class-container flex justify-center flex-wrap">
         {classrooms.map((classroom) => (
           <ClassListing
-            classroom={classroom.class_id}
-            key={classroom.class_id}
+            classroom={classroom.class_id || classroom.id}
+            key={classroom.class_id || classroom.id}
           />
         )) }
       </div>
