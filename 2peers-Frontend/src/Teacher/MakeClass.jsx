@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState, useContext } from 'react';
 // import { useParams } from 'react-router-dom';
 import TwoPeersContext from '../context/TwoPeersContext';
@@ -57,7 +58,7 @@ export default function MakeClass({ isStudent }) {
 }
 
 MakeClass.propTypes = {
-  isStudent: Boolean,
+  isStudent: PropTypes.bool,
 };
 
 MakeClass.defaultProps = {

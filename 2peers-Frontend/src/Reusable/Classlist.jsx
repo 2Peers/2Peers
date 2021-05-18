@@ -1,4 +1,7 @@
-import React, { useContext } from 'react';
+import Axios from 'axios';
+import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import MakeClass from '../Teacher/MakeClass';
 import ClassListing from './ClassListing';
 import TwoPeersContext from '../context/TwoPeersContext';
@@ -9,6 +12,16 @@ export default function Classlist({ isStudent }) {
     toggleModal,
     displaySwitch,
   } = useContext(TwoPeersContext);
+  const { id } = useParams();
+  const [classrooms, setClassrooms] = useState([]);
+
+  useEffect(async () => {
+    Axios.get(`/student/${id}/classes`)
+      .then(({ data }) => {
+        setClassrooms(data);
+        console.log(classrooms);
+      });
+  }, [id]);
 
   return (
     <div className="classList m-8 w-9/12">
@@ -18,16 +31,21 @@ export default function Classlist({ isStudent }) {
         { toggleModal ? <MakeClass isStudent={isStudent} /> : null }
       </div>
       <div className="class-container flex justify-center flex-wrap">
-        <ClassListing />
+        {classrooms.map((classroom) => (
+          <ClassListing
+            classroom={classroom.class_id}
+            key={classroom.class_id}
+          />
+        )) }
       </div>
     </div>
   );
 }
 
 Classlist.propTypes = {
-  isStudent: Boolean,
+  isStudent: PropTypes.bool,
 };
 
 Classlist.defaultProps = {
-  isStudent: false,
+  isStudent: null,
 };
