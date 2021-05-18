@@ -13,7 +13,7 @@ class Classroom {
 
   static getClasses(id) {
     const queryText = 'SELECT class_id FROM classes INNER JOIN classmembers ON classes.id = classmembers.class_id WHERE classmembers.student = $1;';
-    return db.query(queryText, [id]).then((results) => results.rows[0]);
+    return db.query(queryText, [id]).then((results) => results.rows);
   }
 
   static getClassMembers(id) {

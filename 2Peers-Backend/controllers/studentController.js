@@ -1,4 +1,5 @@
 const { Student } = require('../models/Student');
+const { Classroom } = require('../models/Classroom');
 
 const addMessage = async (req, res) => {
   // student id to get the specific student that is sending the message
@@ -14,6 +15,17 @@ const addMessage = async (req, res) => {
   }
 };
 
+const getClasses = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const classes = await Classroom.getClasses(id);
+    res.status(200).json(classes);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   addMessage,
+  getClasses,
 };

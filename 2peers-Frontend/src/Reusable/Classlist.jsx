@@ -19,7 +19,6 @@ export default function Classlist({ isStudent }) {
     Axios.get(`/student/${id}/classes`)
       .then(({ data }) => {
         setClassrooms(data);
-        console.log(classrooms);
       });
   }, [id]);
 
