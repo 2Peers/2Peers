@@ -12,6 +12,11 @@ class Student {
     return db.query(queryText, [Number(id), Number(details.class), message, Number(messagerating)])
       .then((results) => results.rows[0]);
   }
+
+  static getStudentById(id) {
+    const queryText = 'SELECT * FROM students WHERE id = $1';
+    return db.query(queryText, [id]).then((result) => result.rows[0]);
+  }
 }
 
 module.exports = { Student };

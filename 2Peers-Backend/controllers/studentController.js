@@ -25,7 +25,18 @@ const getClasses = async (req, res) => {
   }
 };
 
+const getStudentById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const student = await Student.getStudentById(id);
+    res.status(200).json(student);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   addMessage,
   getClasses,
+  getStudentById,
 };

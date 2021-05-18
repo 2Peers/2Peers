@@ -18,7 +18,18 @@ const getClasses = async (req, res) => {
   }
 };
 
+const getTeacherById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const teacher = await Teacher.getById(id);
+    res.status(200).json(teacher);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   createClass,
   getClasses,
+  getTeacherById,
 };
