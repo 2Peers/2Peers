@@ -10,7 +10,7 @@ const imageStyle = {
 export default function Home() {
   return (
     <div>
-      <Navbar />
+      <Navbar route="/login" link="Login" />
       <Banner />
       <section className="max-w-5xl px-6 py-16 mx-auto">
         <div className="">
