@@ -8,26 +8,38 @@ import Message from './Message';
 
 function Classroom() {
   const { id } = useParams();
+  const [classHeading, setClassHeading] = useState('');
   const [messages, setMessages] = useState([]);
 
   useEffect(async () => {
+    Axios.get(`/classrooms/${id}`)
+      .then(({ data }) => {
+        setClassHeading(data.classcode);
+      });
     Axios.get(`/classrooms/${id}/messages`)
       .then(({ data }) => {
         setMessages(data);
       });
   }, [id]);
+
   return (
     <div className="classroom w-full">
       <NavBar />
       <div className="Classname flex justify-center font-bold p-5">
-        <p>Class Name</p>
+        <p className="text-2xl text-gray-600 text-center">
+          Class Code:
+          <br />
+          { classHeading }
+        </p>
       </div>
+      <hr className="mx-5" />
       <div className="msg-container w-full p-3">
         {/* map when connected to backend */}
         {messages.map((data) => (
           <Message
             key={data.date}
             text={data.message}
+            rating={data.messagerating || 0}
             userId={data.student || data.teacher_id}
             isStudent={Boolean(data.student)}
           />
