@@ -2,7 +2,6 @@ const db = require('../database/db');
 
 class Student {
   static addMessage(details, id) {
-    console.log('adding message');
     // destructuring req.body to get message rating,
     // can not destructure class since class is a keyword...
     const { message, messagerating } = details;
