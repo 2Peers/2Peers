@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export default function Message() {
-  // const {name, email, message} = props;
+  // const {name, email, message, rating} = props;
   const [optionsVisible, setOptions] = useState(false);
 
   function options() {
@@ -10,7 +10,7 @@ export default function Message() {
   }
 
   return (
-    <div onClick={options} onKeyDown={options} role="button" tabIndex={0} className="message p-3 bg-green-100 ml-2 my-3 rounded overflow-hidden shadow-lg max-w-xs w-1/6">
+    <div onClick={options} onKeyDown={options} role="button" tabIndex={0} className="message p-3 bg-green-100 ml-2 my-3 rounded overflow-hidden shadow-lg max-w-xs w-44">
       <div className="rating w-full">
         ★★★★☆
       </div>
