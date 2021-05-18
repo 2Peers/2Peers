@@ -11,7 +11,7 @@ function Classroom() {
   const [classHeading, setClassHeading] = useState('');
   const [messages, setMessages] = useState([]);
 
-  useEffect(async () => {
+  function getMessages() {
     Axios.get(`/classrooms/${id}`)
       .then(({ data }) => {
         setClassHeading(data.classcode);
@@ -20,6 +20,10 @@ function Classroom() {
       .then(({ data }) => {
         setMessages(data);
       });
+  }
+
+  useEffect(async () => {
+    getMessages();
   }, [id]);
 
   return (
@@ -46,7 +50,7 @@ function Classroom() {
         ))}
       </div>
       <div className="compose-msg w-full py-1 flex justify-center">
-        <MakeMessage />
+        <MakeMessage update={getMessages} />
       </div>
       <Footer />
     </div>

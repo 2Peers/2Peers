@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import { React, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export default function MakeMessage() {
+export default function MakeMessage({ update }) {
   const [message, setMessage] = useState('');
   const { id } = useParams();
 
-  function sendMessage(e) {
+  const sendMessage = async (e) => {
     e.preventDefault();
 
     const options = {
@@ -22,8 +23,10 @@ export default function MakeMessage() {
     // make a post request
     // Once the sign in logic is merged in, replace the 1
     // in the fetch request below with the student id
-    fetch('http://localhost:3000/student/1/message', options);
-  }
+    await fetch('http://localhost:3000/student/1/message', options);
+    setMessage('');
+    update();
+  };
 
   return (
     <form onSubmit={sendMessage} className="w-full min-w-sm px-5 py-3">
@@ -40,3 +43,11 @@ export default function MakeMessage() {
     </form>
   );
 }
+
+MakeMessage.propTypes = {
+  update: PropTypes.func,
+};
+
+MakeMessage.defaultProps = {
+  update: null,
+};
