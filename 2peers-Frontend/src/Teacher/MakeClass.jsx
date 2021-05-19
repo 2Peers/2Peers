@@ -26,7 +26,7 @@ export default function MakeClass() {
 
   return (
     <div className="form-container w-full fixed z-10 inset-0 overflow-y-auto flex justify-center items-center">
-      <form onSubmit={(e) => { preventDefault(e); }} className="shadow-md rounded flex flex-col">
+      <form onSubmit={(e) => { preventDefault(e); setCode(''); }} className="shadow-md rounded flex flex-col">
         <h1 className="p-3 font-bold">Make a new Class</h1>
         <label htmlFor="code" className="p-3 text-gray-500">
           Code
