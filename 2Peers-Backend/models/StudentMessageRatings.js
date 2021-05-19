@@ -2,7 +2,7 @@ const db = require('../database/db');
 
 class StudentMessageRatings {
   static postMessageRating(messageid, studentid, rating) {
-    const queryText = 'INSERT INTO studentRatings (raterid, messageid, rating) VALUES ($1, $2, $3) RETURNING *;';
+    const queryText = 'INSERT INTO studentRatings (raterid, messageid, rating) VALUES ($1, $2, $3);';
     return db.query(queryText, [studentid, messageid, rating]);
   }
 

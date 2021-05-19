@@ -64,8 +64,8 @@ const addRating = async (req, res) => {
   // replace this with session user id
   const studentid = req.body.id;
   try {
-    const addedRating = await StudentMessageRatings.postMessageRating(messageid, studentid, rating);
-    res.send(200).json(addedRating);
+    await StudentMessageRatings.postMessageRating(messageid, studentid, rating);
+    res.sendStatus(200);
   } catch {
     res.sendStatus(500);
   }
