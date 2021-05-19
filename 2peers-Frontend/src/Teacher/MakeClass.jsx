@@ -30,7 +30,7 @@ export default function MakeClass({ isStudent }) {
 
   return (
     <div className="form-container w-full fixed z-10 inset-0 overflow-y-auto flex justify-center items-center">
-      <form onSubmit={(e) => { preventDefault(e); }} className="shadow-md rounded flex flex-col bg-white shadow-2xl">
+      <form onSubmit={(e) => { preventDefault(e); setCode(''); }} className="shadow-md rounded flex flex-col bg-white shadow-2xl">
         <h1 className="p-3 font-bold block text-center">
           {isStudent ? 'Add a Class' : 'Make a new Class'}
         </h1>
