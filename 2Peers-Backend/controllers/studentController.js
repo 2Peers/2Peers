@@ -1,5 +1,6 @@
 const { Student } = require('../models/Student');
 const { Classroom } = require('../models/Classroom');
+const { StudentMessages } = require('../models/StudentMessages');
 
 const addMessage = async (req, res) => {
   // student id to get the specific student that is sending the message
@@ -35,8 +36,43 @@ const getStudentById = async (req, res) => {
   }
 };
 
+const getMessage = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const message = await StudentMessages.getMessage(id);
+    res.status(200).json(message);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
+const patchMessage = async (req, res) => {
+  const { id } = req.params;
+  const { message } = req.body;
+  try {
+    await StudentMessages.patchMessage(id, message);
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
+const updateRating = async (req, res) => {
+  const { id } = req.params;
+  const { rating } = req.body;
+  try {
+    await StudentMessages.updateRating(id, rating);
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   addMessage,
   getClasses,
   getStudentById,
+  getMessage,
+  patchMessage,
+  updateRating,
 };
