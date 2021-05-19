@@ -68,6 +68,16 @@ const updateRating = async (req, res) => {
   }
 };
 
+const deleteMessage = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await StudentMessages.deleteMessage(id);
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   addMessage,
   getClasses,
@@ -75,4 +85,5 @@ module.exports = {
   getMessage,
   patchMessage,
   updateRating,
+  deleteMessage,
 };

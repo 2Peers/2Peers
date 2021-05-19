@@ -6,6 +6,7 @@ const router = express.Router();
 const studentRouter = require('./studentRouter');
 const teacherRouter = require('./teacherRouter');
 const classroomRouter = require('./classroomRouter');
+const messageRouter = require('./messageRouter');
 // const bcrypt = require('bcrypt');
 
 router.get('/api', (req, res) => {
@@ -41,5 +42,6 @@ router.post('/signUp', (req, res) => {
 router.use('/student', studentRouter);
 router.use('/teachers', teacherRouter);
 router.use('/classrooms', classroomRouter);
+router.use('/messages', messageRouter);
 
 module.exports = router;

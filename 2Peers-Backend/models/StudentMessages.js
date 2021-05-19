@@ -15,6 +15,11 @@ class StudentMessages {
     const queryText = 'UPDATE studentmessages SET messagerating = $1 WHERE id = $2';
     return db.query(queryText, [id, newRating]);
   }
+
+  static deleteMessage(id) {
+    const queryText = 'DELETE FROM studentmessages WHERE id = $1';
+    return db.query(queryText, [id]);
+  }
 }
 
 module.exports = { StudentMessages };
