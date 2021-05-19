@@ -58,7 +58,6 @@ CREATE TABLE studentMessages (
     student int,
     class int, 
     message TEXT,
-    messageRating int, 
     date TIMESTAMP WITH TIME ZONE,
     FOREIGN KEY (student) REFERENCES students(id) ON DELETE CASCADE,
     FOREIGN KEY (class) REFERENCES classes(id) ON DELETE CASCADE
@@ -69,16 +68,26 @@ CREATE TABLE teacherMessages (
     teacher int,
     class int, 
     message TEXT,
-    messageRating int, 
     date TIMESTAMP WITH TIME ZONE,
     FOREIGN KEY (teacher) REFERENCES teachers(id) ON DELETE CASCADE,
     FOREIGN KEY (class) REFERENCES classes(id) ON DELETE CASCADE
 );
 
+CREATE TABLE studentRatings (
+    id SERIAL PRIMARY KEY,
+    raterid int,
+    messageid int,
+    rating int,
+    FOREIGN KEY (raterid) REFERENCES students(id) ON DELETE CASCADE,
+    FOREIGN KEY (messageid) REFERENCES studentMessages(id) ON DELETE CASCADE
+);
+
 INSERT INTO subjects (name) VALUES ('math');
 INSERT INTO teachers (name, email, profilePic, subject, encryptedPassword, archived) VALUES ('ms', 'ms@email.com', '#', 1, 'oneWord', FALSE);
 INSERT INTO students (name, email, profilePic, encryptedPassword, archived) VALUES ('izzy', 'iz@email.com', '#', 'words', FALSE);
+INSERT INTO students (name, email, profilePic, encryptedPassword, archived) VALUES ('jas', 'jas@email.com', '#', 'jas', FALSE);
 INSERT INTO classes (classCode, teacher_id) VALUES ('abc123', 1);
 INSERT INTO classMembers (student, selfRating, peerRating, class_id) VALUES (1, 5, 3, 1);
-INSERT INTO studentMessages (student, class, message, messageRating, date) VALUES (1, 1, 'Some Message', 3, now());
-INSERT INTO teacherMessages (teacher, class, message, messageRating, date) VALUES (1, 1, 'Some Message', 3, now());
+INSERT INTO studentMessages (student, class, message, date) VALUES (1, 1, 'Some Message', now());
+INSERT INTO teacherMessages (teacher, class, message, date) VALUES (1, 1, 'Some Message', now());
+INSERT INTO studentRatings (raterid, messageid, rating) VALUES (2, 1, 3);

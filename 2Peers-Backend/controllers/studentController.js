@@ -1,6 +1,7 @@
 const { Student } = require('../models/Student');
 const { Classroom } = require('../models/Classroom');
 const { StudentMessages } = require('../models/StudentMessages');
+const { StudentMessageRatings } = require('../models/StudentMessageRatings');
 
 const addMessage = async (req, res) => {
   // student id to get the specific student that is sending the message
@@ -57,12 +58,39 @@ const patchMessage = async (req, res) => {
   }
 };
 
-const updateRating = async (req, res) => {
-  const { id } = req.params;
+const addRating = async (req, res) => {
+  const messageid = req.params.id;
   const { rating } = req.body;
+  // replace this with session user id
+  const studentid = req.body.id;
   try {
-    await StudentMessages.updateRating(id, rating);
-    res.sendStatus(200);
+    const addedRating = await StudentMessageRatings.postMessageRating(messageid, studentid, rating);
+    res.send(200).json(addedRating);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
+const getAvgMessageRatings = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const rating = await StudentMessageRatings.getAvgMessageRatings(id);
+    res.status(200).json(Number(rating.avg));
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
+const patchMessageRating = async (req, res) => {
+  const messageid = req.params.id;
+  const newRating = req.body.rating;
+  // replacec studentid with session later
+  const studentid = req.body.id;
+  try {
+    const rating = await StudentMessageRatings.patchMessageRating(
+      messageid, studentid, newRating,
+    );
+    res.send(200).json(rating);
   } catch {
     res.sendStatus(500);
   }
@@ -80,10 +108,12 @@ const deleteMessage = async (req, res) => {
 
 module.exports = {
   addMessage,
+  addRating,
   getClasses,
   getStudentById,
+  getAvgMessageRatings,
   getMessage,
   patchMessage,
-  updateRating,
+  patchMessageRating,
   deleteMessage,
 };
