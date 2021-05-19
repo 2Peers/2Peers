@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function ClassListing({ classroom }) {
   return (
-    <Link to={`/classroom/${classroom}`} className="class-instance rounded shadow-2xl text-gray-700 font-bold px-8 py-6 m-4 w-3/5">
+    <Link to={`/classrooms/${classroom}`} className="class-instance rounded shadow-2xl text-gray-700 font-bold px-8 py-6 m-4 w-3/5">
       <div>
         <div className="class-heading">
           Name of Class(get from fetch using props id)
