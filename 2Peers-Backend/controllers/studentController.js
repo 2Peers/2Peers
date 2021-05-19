@@ -50,8 +50,8 @@ const patchMessage = async (req, res) => {
   const { id } = req.params;
   const { message } = req.body;
   try {
-    await StudentMessages.patchMessage(id, message);
-    res.sendStatus(200);
+    const updatedMessage = await StudentMessages.patchMessage(id, message);
+    res.status(200).json(updatedMessage);
   } catch {
     res.sendStatus(500);
   }

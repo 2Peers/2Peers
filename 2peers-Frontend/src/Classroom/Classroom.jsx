@@ -48,6 +48,7 @@ function Classroom() {
         {messages.map((data) => (
           <Message
             key={data.date}
+            id={data.id}
             text={data.message}
             rating={data.messagerating || 0}
             userId={data.student || data.teacher_id}

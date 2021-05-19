@@ -7,8 +7,8 @@ class StudentMessages {
   }
 
   static patchMessage(id, message) {
-    const queryText = 'UPDATE studentmessages SET message = $1 WHERE id = $2';
-    return db.query(queryText, [id, message]);
+    const queryText = 'UPDATE studentmessages SET message = $1 WHERE id = $2 RETURNING *;';
+    return db.query(queryText, [message, id]).then((results) => results.rows[0]);
   }
 
   static updateRating(id, newRating) {

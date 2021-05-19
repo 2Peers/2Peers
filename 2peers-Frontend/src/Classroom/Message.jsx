@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import EditMessage from './EditMessage';
 
 export default function Message({
-  text, isStudent, userId, rating,
+  text, isStudent, userId, rating, id,
 }) {
   const [optionsVisible, setOptions] = useState(false);
   const [name, setName] = useState('');
@@ -57,7 +57,7 @@ export default function Message({
           </div>
         </div>
       </div>
-      {optionsVisible ? <EditMessage text={text} submission={setOptions} /> : null}
+      {optionsVisible ? <EditMessage text={text} submission={setOptions} id={id} /> : null}
     </div>
   );
 }
@@ -67,6 +67,7 @@ Message.propTypes = {
   rating: PropTypes.number,
   isStudent: PropTypes.bool,
   userId: PropTypes.number,
+  id: PropTypes.number,
 };
 
 Message.defaultProps = {
@@ -74,4 +75,5 @@ Message.defaultProps = {
   rating: 0,
   isStudent: true,
   userId: 1,
+  id: null,
 };
