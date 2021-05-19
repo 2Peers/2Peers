@@ -16,7 +16,6 @@ export default function MakeMessage({ update }) {
       method: 'POST',
       body: JSON.stringify({
         message,
-        messagerating: 0,
         class: id,
       }),
     };

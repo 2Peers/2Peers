@@ -24,7 +24,7 @@ function Classroom() {
 
   const checkMessages = () => {
     getMessages();
-    setTimeout(checkMessages, 60000);
+    setTimeout(checkMessages, 5000);
   };
 
   useEffect(async () => {
@@ -47,10 +47,9 @@ function Classroom() {
         {/* map when connected to backend */}
         {messages.map((data) => (
           <Message
-            key={data.date}
+            key={`${data.date}-${Boolean(data.student)}`}
             id={data.id}
             text={data.message}
-            rating={data.messagerating || 0}
             userId={data.student || data.teacher_id}
             isStudent={Boolean(data.student)}
           />

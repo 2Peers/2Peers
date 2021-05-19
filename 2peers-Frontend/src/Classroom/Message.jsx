@@ -4,21 +4,25 @@ import React, { useEffect, useState } from 'react';
 import EditMessage from './EditMessage';
 
 export default function Message({
-  text, isStudent, userId, rating, id,
+  text, isStudent, userId, id,
 }) {
   const [optionsVisible, setOptions] = useState(false);
   const [name, setName] = useState('');
   const [messageRating, setMessageRating] = useState('');
 
   useEffect(() => {
-    for (let i = 0; i < 5; i += 1) {
-      if (rating === 0) {
-        setMessageRating('☆☆☆☆☆');
-        break;
-      }
-      if (i > rating - 1) setMessageRating((prev) => `${prev}☆`);
-      if (i <= rating - 1) setMessageRating((prev) => `${prev}★`);
-    }
+    Axios.get(`/messages/${id}/rating`)
+      .then(({ data }) => {
+        setMessageRating('');
+        for (let i = 0; i < 5; i += 1) {
+          if (data === 0) {
+            setMessageRating('☆☆☆☆☆');
+            break;
+          }
+          if (i > data - 1) setMessageRating((prev) => `${prev}☆`);
+          if (i <= data - 1) setMessageRating((prev) => `${prev}★`);
+        }
+      });
     if (isStudent) {
       Axios.get(`/student/${userId}`)
         .then(({ data }) => {
@@ -30,25 +34,40 @@ export default function Message({
           setName(data.name);
         });
     }
-  }, [text]);
+  }, []);
 
   function options() {
     setOptions((prev) => !prev);
   }
 
+  const postRating = (idx) => {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        rating: idx,
+        // replace this with the userid stored in a cookie
+        id: 2,
+      }),
+    };
+    fetch(`/messages/${id}`, fetchOptions);
+  };
+
   return (
     <div>
-      <div onClick={options} onKeyDown={options} role="button" tabIndex={0} className="message p-3 bg-green-100 ml-2 my-3 rounded overflow-hidden shadow-lg max-w-xs w-44">
+      <div className="message p-3 bg-green-100 ml-2 my-3 rounded overflow-hidden shadow-lg max-w-xs w-44">
         {
           isStudent ? (
-            <div className="rating w-full">
-              {messageRating}
+            <div className="rating w-full flex justify-center">
+              {messageRating.split('').map((star, idx) => <button type="button" onClick={() => { postRating(idx + 1); }}>{star}</button>)}
             </div>
           ) : (
             null
           )
         }
-        <div className="message-content flex justify-start flex-col pl-3">
+        <div onClick={options} onKeyDown={options} role="button" tabIndex={0} className="message-content flex justify-start flex-col pl-3">
           <div className="message-composer font-bold text-left">
             { name }
           </div>
@@ -64,7 +83,6 @@ export default function Message({
 
 Message.propTypes = {
   text: PropTypes.string,
-  rating: PropTypes.number,
   isStudent: PropTypes.bool,
   userId: PropTypes.number,
   id: PropTypes.number,
@@ -72,7 +90,6 @@ Message.propTypes = {
 
 Message.defaultProps = {
   text: null,
-  rating: 0,
   isStudent: true,
   userId: 1,
   id: null,
