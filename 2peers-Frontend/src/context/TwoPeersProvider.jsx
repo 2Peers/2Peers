@@ -10,7 +10,7 @@ function TwoPeersProvider({ children }) {
   useEffect(() => {
     Axios.get('/api')
       .then((message) => setData(message.data));
-  });
+  }, []);
 
   const [userName, setName] = useState('');
   const [userEmail, setEmail] = useState('');
