@@ -7,7 +7,7 @@ class Classroom {
   }
 
   static getClassByCode(code) {
-    const queryText = 'SELECT * FROM classes WHERE classcode = $1';
+    const queryText = 'SELECT id FROM classes WHERE classcode = $1';
     return db.query(queryText, [code]).then((results) => results.rows[0]);
   }
 

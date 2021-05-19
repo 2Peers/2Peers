@@ -18,6 +18,11 @@ class Student {
     const queryText = 'SELECT * FROM students WHERE id = $1';
     return db.query(queryText, [id]).then((result) => result.rows[0]);
   }
+
+  static joinClass(id, classid) {
+    const queryText = 'INSERT INTO classMembers (student, selfRating, peerRating, class_id) VALUES ($1, 0, 0, $2) RETURNING *;';
+    return db.query(queryText, [id, classid]).then((results) => results.rows[0]);
+  }
 }
 
 module.exports = { Student };

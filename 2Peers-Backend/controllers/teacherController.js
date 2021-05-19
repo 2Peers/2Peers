@@ -4,8 +4,12 @@ const Teacher = require('../models/Teacher');
 const createClass = async (req, res) => {
   const { code } = req.body;
   const { id } = req.params;
-  await Teacher.createClass(code, id);
-  res.sendStatus(200);
+  try {
+    const newClass = await Teacher.createClass(code, id);
+    res.status(200).json(newClass);
+  } catch {
+    res.sendStatus(500);
+  }
 };
 
 const getClasses = async (req, res) => {

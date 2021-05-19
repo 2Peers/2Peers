@@ -6,5 +6,6 @@ const studentController = require('../controllers/studentController');
 router.get('/:id/classes', studentController.getClasses);
 router.get('/:id', studentController.getStudentById);
 router.post('/:id/message', studentController.addMessage);
+router.post('/:id/classes', studentController.joinClass);
 
 module.exports = router;

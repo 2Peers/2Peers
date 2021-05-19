@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useState, useContext } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import TwoPeersContext from '../context/TwoPeersContext';
 
-export default function MakeClass({ isStudent }) {
+export default function MakeClass({ isStudent, submission }) {
   const [code, setCode] = useState('');
-  // const { id } = useParams();
+  const { id } = useParams();
+
   const {
     displaySwitch,
   } = useContext(TwoPeersContext);
@@ -21,11 +22,21 @@ export default function MakeClass({ isStudent }) {
     };
 
     if (isStudent) {
-      fetch('http://localhost:3000/student/1/classes', options);
+      fetch(`http://localhost:3000/student/${id}/classes`, options)
+        .then((data) => data.json())
+        .then((raw) => {
+          submission(raw.class_id);
+          displaySwitch(false);
+        });
       return;
     }
 
-    fetch('http://localhost:3000/teachers/1/classes', options);
+    fetch(`http://localhost:3000/teachers/${id}/classes`, options)
+      .then((data) => data.json())
+      .then((raw) => {
+        submission(raw.id);
+        displaySwitch(false);
+      });
   }
 
   return (
@@ -59,8 +70,10 @@ export default function MakeClass({ isStudent }) {
 
 MakeClass.propTypes = {
   isStudent: PropTypes.bool,
+  submission: PropTypes.func,
 };
 
 MakeClass.defaultProps = {
   isStudent: false,
+  submission: null,
 };

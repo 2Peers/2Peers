@@ -17,6 +17,18 @@ const addMessage = async (req, res) => {
   }
 };
 
+const joinClass = async (req, res) => {
+  const { id } = req.params;
+  const { code } = req.body;
+  try {
+    const classId = await Classroom.getClassByCode(code);
+    const joinedClass = await Student.joinClass(id, classId.id);
+    res.status(200).json(joinedClass);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 const getClasses = async (req, res) => {
   const { id } = req.params;
   try {
@@ -109,6 +121,7 @@ const deleteMessage = async (req, res) => {
 module.exports = {
   addMessage,
   addRating,
+  joinClass,
   getClasses,
   getStudentById,
   getAvgMessageRatings,
