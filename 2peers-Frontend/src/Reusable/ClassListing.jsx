@@ -21,7 +21,8 @@ export default function ClassListing({ classroom, isStudent }) {
             classcode: data.classcode,
           })
             .then((raw) => {
-              setPeerRating(raw.data.rating.toFixed(2));
+              console.log(raw);
+              setPeerRating(raw.data.rating ? raw.data.rating.toFixed(2) : 0);
             });
 
           Axios.post(`/classrooms/${data.id}`, {
@@ -39,10 +40,10 @@ export default function ClassListing({ classroom, isStudent }) {
       <div>
         <div className="class-heading">
           <p>{className}</p>
-          <p>
+          <p className="px-3 text-gray-400 text-sm font-medium">
             {`Self Rating: ${selfRating}`}
           </p>
-          <p>
+          <p className="px-3 text-gray-400 text-sm font-medium">
             {`Peer Rating: ${peerRating}`}
           </p>
         </div>
