@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import Footer from '../Reusable/Footer';
 import MakeMessage from './MakeMessage';
 import Message from './Message';
@@ -40,11 +40,21 @@ function Classroom() {
   return (
     <div className="classroom w-full">
       <div className="Classname flex justify-center font-bold p-5">
-        <p className="text-2xl text-gray-600 text-center">
-          Class Code:
-          <br />
-          { classHeading }
-        </p>
+        <div className="text-2xl text-gray-600 text-center">
+          <p>
+            Class Code:
+            <br />
+            { classHeading }
+          </p>
+          <Link to={lastUrl}>
+            <button
+              type="button"
+              className="flex-shrink-0 bg-red-500 hover:bg-red-700 border-red-500 hover:border-red-700 text-sm border-4 text-white py-1 px-2 rounded"
+            >
+              Back
+            </button>
+          </Link>
+        </div>
       </div>
       <hr className="mx-5" />
       <div className="msg-container w-full p-3">
