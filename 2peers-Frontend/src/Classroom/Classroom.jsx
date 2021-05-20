@@ -2,7 +2,6 @@ import Axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import TwoPeersContext from '../context/TwoPeersContext';
-import Footer from '../Reusable/Footer';
 import MakeMessage from './MakeMessage';
 import Message from './Message';
 
@@ -86,7 +85,6 @@ function Classroom() {
           update={getMessages}
         />
       </div>
-      <Footer />
     </div>
   );
 }
