@@ -29,6 +29,28 @@ const joinClass = async (req, res) => {
   }
 };
 
+const getPeerRating = async (req, res) => {
+  const { id } = req.params;
+  const { classcode } = req.body;
+  try {
+    const classroom = await Classroom.getClassByCode(classcode);
+    const studentMessages = await StudentMessages.getClassMessages(id, classroom.id);
+    const calcTotalAvg = async (messages) => {
+      const ratings = messages.map(async (msg) => {
+        const rating = await StudentMessageRatings.getAvgMessageRatings(msg.id);
+        return Number(rating.avg);
+      });
+      const resolvedRatings = await Promise.all(ratings);
+      const total = resolvedRatings.reduce((acc, cur) => acc + cur, 0) / messages.length;
+      return total;
+    };
+    const overall = await calcTotalAvg(studentMessages);
+    res.status(200).json({ rating: overall });
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 const getClasses = async (req, res) => {
   const { id } = req.params;
   try {
@@ -126,6 +148,7 @@ module.exports = {
   getStudentById,
   getAvgMessageRatings,
   getMessage,
+  getPeerRating,
   patchMessage,
   patchMessageRating,
   deleteMessage,

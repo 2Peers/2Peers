@@ -13,7 +13,6 @@ export default function Profile({ isStudent }) {
     if (isStudent) {
       Axios.get(`/student/${id}`)
         .then(({ data }) => {
-          console.log(data);
           setName(data.name);
           setEmail(data.email);
           setPic(data.profilepic);
@@ -21,7 +20,6 @@ export default function Profile({ isStudent }) {
     } else {
       Axios.get(`/teachers/${id}`)
         .then(({ data }) => {
-          console.log(data);
           setName(data.name);
           setEmail(data.email);
           setPic(data.profilepic);

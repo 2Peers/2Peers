@@ -22,6 +22,7 @@ export default function MakeMessage({ update }) {
     // make a post request
     // Once the sign in logic is merged in, replace the 1
     // in the fetch request below with the student id
+    // also do a check if it's a teacher to post to a different url
     await fetch('http://localhost:3000/student/1/message', options);
     setMessage('');
     update();

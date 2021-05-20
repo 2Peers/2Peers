@@ -19,6 +19,17 @@ const getClasses = async (req, res) => {
   }
 };
 
+const getClassMember = async (req, res) => {
+  const { id } = req.params;
+  const { studentid } = req.body;
+  try {
+    const student = await Classroom.getClassMember(studentid, id);
+    res.status(200).json(student);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 const getClassMembers = async (req, res) => {
   try {
     const classmates = await Classroom.getClassMembers(req.params.id);
@@ -46,6 +57,7 @@ const getClassMessages = async (req, res) => {
 module.exports = {
   getClass,
   getClasses,
+  getClassMember,
   getClassMembers,
   getClassMessages,
 };

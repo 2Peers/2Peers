@@ -21,6 +21,11 @@ class Classroom {
     return db.query(queryText, [id]).then((results) => results.rows);
   }
 
+  static getClassMember(id, classid) {
+    const queryText = 'SELECT * FROM classmembers WHERE student = $1 AND class_id = $2;';
+    return db.query(queryText, [id, classid]).then((results) => results.rows[0]);
+  }
+
   static getClassMembers(id) {
     const queryText = 'SELECT * FROM classmembers WHERE class_id = $1';
     return db.query(queryText, [id]).then((results) => results.rows);

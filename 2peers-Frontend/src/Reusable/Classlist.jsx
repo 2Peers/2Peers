@@ -45,6 +45,7 @@ export default function Classlist({ isStudent }) {
           <ClassListing
             classroom={classroom.class_id || classroom.id}
             key={classroom.class_id || classroom.id}
+            isStudent={isStudent}
           />
         )) }
       </div>
