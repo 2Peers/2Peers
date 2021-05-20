@@ -55,7 +55,10 @@ export default function ClassListing({ classroom, isStudent }) {
       { editVisible
         ? (
           <EditSelfrating
-            submission={() => { setEditVisible((prev) => !prev); }}
+            submission={(newRating) => {
+              setEditVisible((prev) => !prev);
+              setSelfRating(newRating);
+            }}
             initRating={selfRating}
             classid={classroom}
           />

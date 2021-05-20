@@ -12,7 +12,7 @@ export default function EditSelfrating({ initRating, submission, classid }) {
     Axios.patch(`/classrooms/${classid}/rating`, {
       id, rating,
     });
-    submission();
+    submission(rating);
   }
 
   return (
@@ -33,9 +33,9 @@ export default function EditSelfrating({ initRating, submission, classid }) {
               min="0"
               max="5"
               step=".01"
-              value={initRating}
+              value={rating}
               className="shadow appearance-none border rounded p-1 border-green-400 mt-2 w-full"
-              onChange={({ target }) => { setRating(target.value); console.log(target); }}
+              onChange={({ target }) => { setRating(target.value); }}
             />
           </label>
           <br />
