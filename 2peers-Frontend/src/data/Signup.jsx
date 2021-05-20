@@ -54,7 +54,7 @@ function Signup() {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <label htmlFor="checkbox" className="ml-2 block text-sm text-gray-900">
-                  <input id="checkbox" name="checkbox" type="checkbox" checked={checkbox} onChange={(e) => { setCheck(e.target.value); }} className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
+                  <input id="checkbox" name="checkbox" type="checkbox" checked={checkbox} onChange={() => { setCheck((prev) => !prev); }} className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
                   Are you a teacher?
                 </label>
               </div>

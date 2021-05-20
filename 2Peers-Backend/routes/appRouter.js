@@ -8,7 +8,7 @@ let userSess = {user: '', valid: '', role: ''};
 
 router.post('/signup', async (req, res) => {
   try {
-    if (req.body.checkbox === 'on') {
+    if (req.body.checkbox === true) {
       await bcrypt.hash(req.body.encryptedpassword, 10, (err, hash) => {
         if(err){
           res.send({ message: 'error' });
@@ -42,30 +42,36 @@ router.post('/signup', async (req, res) => {
 router.post('/signin', async (req, res) => {
   const { encryptedpassword } = req.body;
   try {
-    if (req.body.checkbox === 'on') {
+    if (req.body.checkbox === true) {
       let user = await Teacher.getTeacher(req.body);
-      userSess.user = user
       if(user){
-        let results = await bcrypt.compare(encryptedpassword, user.encryptedpassword);
-        if(results){
-          userSess.valid = true;
-          userSess.checkbox = 'on'
-          userSess.role = 'teacher'
-          req.session.user = user
-        }
+        await bcrypt.compare(encryptedpassword, user.encryptedpassword, (err, results) => {
+          if(results){
+            userSess.valid = true;
+            userSess.checkbox = true
+            userSess.role = 'teacher'
+            userSess.user = user
+            res.status(200).json(userSess);
+          } else{
+            res.sendStatus(404)
+          }
+        })
       }
     } 
     else {
       let user = await Student.getStudent(req.body);
-      userSess.user = user
       if(user){
-        let results = await bcrypt.compare(encryptedpassword, user.encryptedpassword);
+        await bcrypt.compare(encryptedpassword, user.encryptedpassword, (err, results) => {
           if(results){
-          userSess.valid = true;
-          userSess.checkbox = 'off'
-          userSess.role = 'student'
-          req.session.user = user
-        }
+            userSess.valid = true;
+            userSess.checkbox = false
+            userSess.role = 'student'
+            userSess.user = user
+            res.status(200).json(userSess);
+          } else {
+            res.sendStatus(404)
+          }
+        })
       }
     }
   }
