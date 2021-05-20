@@ -40,7 +40,7 @@ function TwoPeersProvider({ children }) {
     };
     Axios.post('/signin', credentials)
       .then((userSession) => {
-        // setData(userSession.data);
+        setData(userSession.data);
         if (userSession.data.checkbox === true) {
           console.log(checkbox);
           history.push(`/teachers/${userSession.data.user.id}`);
