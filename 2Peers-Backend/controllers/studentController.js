@@ -51,6 +51,17 @@ const getPeerRating = async (req, res) => {
   }
 };
 
+const patchUser = async (req, res) => {
+  const { id } = req.params;
+  const { name, email } = req.body;
+  try {
+    const user = await Student.patchUser(id, name, email);
+    res.status(200).json(user);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 const getClasses = async (req, res) => {
   const { id } = req.params;
   try {
@@ -150,6 +161,7 @@ module.exports = {
   getMessage,
   getPeerRating,
   patchMessage,
+  patchUser,
   patchMessageRating,
   deleteMessage,
 };

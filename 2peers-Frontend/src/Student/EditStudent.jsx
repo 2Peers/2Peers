@@ -1,11 +1,19 @@
+import Axios from 'axios';
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-export default function EditStudent() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+export default function EditStudent({ submission, oldName, oldEmail }) {
+  const [name, setName] = useState(oldName);
+  const [email, setEmail] = useState(oldEmail);
+  const { id } = useParams();
 
   function sendEditedStudent(e) {
     e.preventDefault();
+    Axios.patch(`/student/${id}`, {
+      name, email,
+    });
+    submission(name, email);
   }
 
   return (
@@ -54,3 +62,15 @@ export default function EditStudent() {
     </div>
   );
 }
+
+EditStudent.propTypes = {
+  submission: PropTypes.func,
+  oldName: PropTypes.string,
+  oldEmail: PropTypes.string,
+};
+
+EditStudent.defaultProps = {
+  submission: null,
+  oldName: '',
+  oldEmail: '',
+};

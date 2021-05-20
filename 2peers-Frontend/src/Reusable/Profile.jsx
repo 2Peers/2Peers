@@ -48,7 +48,21 @@ export default function Profile({ isStudent }) {
           <button type="button" className="mx-3 bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-400 hover:border-transparent rounded">Delete</button>
         </div>
       </div>
-      { edit ? <EditStudent /> : null}
+      { edit
+        ? (
+          <EditStudent
+            submission={
+              (newName, newEmail) => {
+                setName(newName);
+                setEmail(newEmail);
+                setEdit((prev) => !prev);
+              }
+            }
+            oldName={name}
+            oldEmail={email}
+          />
+        )
+        : null}
     </div>
   );
 }
