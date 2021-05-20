@@ -17,6 +17,51 @@ const addMessage = async (req, res) => {
   }
 };
 
+const joinClass = async (req, res) => {
+  const { id } = req.params;
+  const { code } = req.body;
+  try {
+    const classId = await Classroom.getClassByCode(code);
+    const joinedClass = await Student.joinClass(id, classId.id);
+    res.status(200).json(joinedClass);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
+const getPeerRating = async (req, res) => {
+  const { id } = req.params;
+  const { classcode } = req.body;
+  try {
+    const classroom = await Classroom.getClassByCode(classcode);
+    const studentMessages = await StudentMessages.getClassMessages(id, classroom.id);
+    const calcTotalAvg = async (messages) => {
+      const ratings = messages.map(async (msg) => {
+        const rating = await StudentMessageRatings.getAvgMessageRatings(msg.id);
+        return Number(rating.avg);
+      });
+      const resolvedRatings = await Promise.all(ratings);
+      const total = resolvedRatings.reduce((acc, cur) => acc + cur, 0) / messages.length;
+      return total;
+    };
+    const overall = await calcTotalAvg(studentMessages);
+    res.status(200).json({ rating: overall });
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
+const patchUser = async (req, res) => {
+  const { id } = req.params;
+  const { name, email } = req.body;
+  try {
+    const user = await Student.patchUser(id, name, email);
+    res.status(200).json(user);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 const getClasses = async (req, res) => {
   const { id } = req.params;
   try {
@@ -106,14 +151,29 @@ const deleteMessage = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Student.deleteStudent(id);
+    res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   addMessage,
   addRating,
+  joinClass,
   getClasses,
   getStudentById,
   getAvgMessageRatings,
   getMessage,
+  getPeerRating,
   patchMessage,
+  patchUser,
   patchMessageRating,
   deleteMessage,
+  deleteUser,
 };

@@ -33,6 +33,21 @@ class Student {
     const queryText = 'SELECT * FROM students WHERE id = $1';
     return db.query(queryText, [id]).then((result) => result.rows[0]);
   }
+
+  static joinClass(id, classid) {
+    const queryText = 'INSERT INTO classMembers (student, selfRating, peerRating, class_id) VALUES ($1, 0, 0, $2) RETURNING *;';
+    return db.query(queryText, [id, classid]).then((results) => results.rows[0]);
+  }
+
+  static patchUser(id, name, email) {
+    const queryText = 'UPDATE students SET name = $1, email = $2 WHERE id = $3 RETURNING *;';
+    return db.query(queryText, [name, email, id]).then((results) => results.rows[0]);
+  }
+
+  static deleteStudent(id) {
+    const queryText = 'DELETE FROM students WHERE id = $1';
+    return db.query(queryText, [id]);
+  }
 }
 
 module.exports = { Student };

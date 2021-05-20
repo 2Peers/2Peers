@@ -5,7 +5,7 @@ import Classlist from '../Reusable/Classlist';
 export default function Student() {
   return (
     <div className="grid justify-items-center">
-      <Profile />
+      <Profile isStudent />
       <Classlist isStudent />
     </div>
   );

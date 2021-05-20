@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import EditMessage from './EditMessage';
 
 export default function Message({
-  text, isStudent, userId, id,
+  text, isStudent, userId, id, raterId,
 }) {
   const [optionsVisible, setOptions] = useState(false);
   const [name, setName] = useState('');
@@ -48,8 +48,7 @@ export default function Message({
       },
       body: JSON.stringify({
         rating: idx,
-        // replace this with the userid stored in a cookie
-        id: 2,
+        id: raterId,
       }),
     };
     fetch(`/messages/${id}`, fetchOptions);
@@ -85,6 +84,7 @@ Message.propTypes = {
   text: PropTypes.string,
   isStudent: PropTypes.bool,
   userId: PropTypes.number,
+  raterId: PropTypes.number,
   id: PropTypes.number,
 };
 
@@ -92,5 +92,6 @@ Message.defaultProps = {
   text: null,
   isStudent: true,
   userId: 1,
+  raterId: 1,
   id: null,
 };

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { React, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export default function MakeMessage({ update }) {
+export default function MakeMessage({ update, userId, isStudent }) {
   const [message, setMessage] = useState('');
   const { id } = useParams();
 
@@ -19,10 +19,17 @@ export default function MakeMessage({ update }) {
         class: id,
       }),
     };
-    // make a post request
-    // Once the sign in logic is merged in, replace the 1
-    // in the fetch request below with the student id
-    await fetch('http://localhost:3000/student/1/message', options);
+    if (isStudent) {
+      // make a post request
+      // Once the sign in logic is merged in, replace the 1
+      // in the fetch request below with the student id
+      // also do a check if it's a teacher to post to a different url
+      await fetch(`http://localhost:3000/student/${userId}/message`, options);
+    } else {
+      console.log(userId);
+      await fetch(`http://localhost:3000/teachers/${userId}/message`, options);
+    }
+
     setMessage('');
     update();
   };
@@ -45,8 +52,12 @@ export default function MakeMessage({ update }) {
 
 MakeMessage.propTypes = {
   update: PropTypes.func,
+  userId: PropTypes.number,
+  isStudent: PropTypes.bool,
 };
 
 MakeMessage.defaultProps = {
   update: null,
+  userId: 1,
+  isStudent: true,
 };
