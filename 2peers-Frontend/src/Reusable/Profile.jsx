@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import EditStudent from '../Student/EditStudent';
+import EditTeacher from '../Teacher/EditTeacher';
 
 export default function Profile({ isStudent }) {
   const [name, setName] = useState('');
@@ -29,6 +30,40 @@ export default function Profile({ isStudent }) {
     }
   }, []);
 
+  const returnEdit = () => {
+    if (edit) {
+      if (isStudent) {
+        return (
+          <EditStudent
+            submission={
+              (newName, newEmail) => {
+                setName(newName);
+                setEmail(newEmail);
+                setEdit((prev) => !prev);
+              }
+            }
+            oldName={name}
+            oldEmail={email}
+          />
+        );
+      }
+      return (
+        <EditTeacher
+          submission={
+            (newName, newEmail) => {
+              setName(newName);
+              setEmail(newEmail);
+              setEdit((prev) => !prev);
+            }
+          }
+          oldName={name}
+          oldEmail={email}
+        />
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="profile-container w-11/12 my-8 rounded shadow-lg flex justify-start">
       <div className="prof-img h-40 w-1/4">
@@ -48,21 +83,7 @@ export default function Profile({ isStudent }) {
           <button type="button" className="mx-3 bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-400 hover:border-transparent rounded">Delete</button>
         </div>
       </div>
-      { edit
-        ? (
-          <EditStudent
-            submission={
-              (newName, newEmail) => {
-                setName(newName);
-                setEmail(newEmail);
-                setEdit((prev) => !prev);
-              }
-            }
-            oldName={name}
-            oldEmail={email}
-          />
-        )
-        : null}
+      { returnEdit() }
     </div>
   );
 }
