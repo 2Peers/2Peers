@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import TwoPeersContext from '../context/TwoPeersContext';
 import EditMessage from './EditMessage';
 
 export default function Message({
@@ -9,6 +10,7 @@ export default function Message({
   const [optionsVisible, setOptions] = useState(false);
   const [name, setName] = useState('');
   const [messageRating, setMessageRating] = useState('');
+  const userInfo = useContext(TwoPeersContext).data.user.id;
 
   useEffect(() => {
     Axios.get(`/messages/${id}/rating`)
@@ -55,7 +57,7 @@ export default function Message({
   };
 
   return (
-    <div>
+    <div className={userInfo === userId ? 'flex justify-end' : ''}>
       <div className="message p-3 bg-green-100 ml-2 my-3 rounded overflow-hidden shadow-lg max-w-xs w-44">
         {
           isStudent ? (
