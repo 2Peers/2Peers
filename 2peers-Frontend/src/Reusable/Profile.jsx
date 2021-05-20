@@ -1,11 +1,12 @@
 import Axios from 'axios';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import EditStudent from '../Student/EditStudent';
 import EditTeacher from '../Teacher/EditTeacher';
 
 export default function Profile({ isStudent }) {
+  const history = useHistory();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [pic, setPic] = useState('');
@@ -64,6 +65,15 @@ export default function Profile({ isStudent }) {
     return null;
   };
 
+  const deleteUser = async () => {
+    if (isStudent) {
+      await Axios.delete(`/student/${id}`);
+    } else {
+      await Axios.delete(`/teachers/${id}`);
+    }
+    history.push('/');
+  };
+
   return (
     <div className="profile-container w-11/12 my-8 rounded shadow-lg flex justify-start">
       <div className="prof-img h-40 w-1/4">
@@ -80,7 +90,7 @@ export default function Profile({ isStudent }) {
         </div>
         <div className="user-btns py-5 flex w-3/12 justify-around">
           <button type="button" onClick={() => { setEdit((prev) => !prev); }} className="mx-3 bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-400 hover:border-transparent rounded">Edit</button>
-          <button type="button" className="mx-3 bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-400 hover:border-transparent rounded">Delete</button>
+          <button onClick={deleteUser} type="button" className="mx-3 bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-400 hover:border-transparent rounded">Delete</button>
         </div>
       </div>
       { returnEdit() }

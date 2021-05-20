@@ -20,6 +20,11 @@ class Teacher {
     const queryText = 'INSERT INTO teacherMessages (teacher, class, message, date) VALUES ($1, $2, $3, now());';
     return db.query(queryText, [teacherId, classId, message]);
   }
+
+  static deleteTeacher(teacherid) {
+    const queryText = 'DELETE FROM teachers WHERE id = $1';
+    return db.query(queryText, [teacherid]);
+  }
 }
 
 module.exports = Teacher;

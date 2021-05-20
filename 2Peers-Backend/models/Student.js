@@ -28,6 +28,11 @@ class Student {
     const queryText = 'UPDATE students SET name = $1, email = $2 WHERE id = $3 RETURNING *;';
     return db.query(queryText, [name, email, id]).then((results) => results.rows[0]);
   }
+
+  static deleteStudent(id) {
+    const queryText = 'DELETE FROM students WHERE id = $1';
+    return db.query(queryText, [id]);
+  }
 }
 
 module.exports = { Student };

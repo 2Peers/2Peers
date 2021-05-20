@@ -151,6 +151,17 @@ const deleteMessage = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Student.deleteStudent(id);
+    res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   addMessage,
   addRating,
@@ -164,4 +175,5 @@ module.exports = {
   patchUser,
   patchMessageRating,
   deleteMessage,
+  deleteUser,
 };

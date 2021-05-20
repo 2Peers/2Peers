@@ -56,10 +56,22 @@ const postMessage = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Teacher.deleteTeacher(id);
+    res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   createClass,
   getClasses,
   getTeacherById,
   patchUser,
   postMessage,
+  deleteUser,
 };

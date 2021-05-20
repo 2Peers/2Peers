@@ -9,5 +9,6 @@ router.patch('/:id', studentController.patchUser);
 router.post('/:id/rating', studentController.getPeerRating);
 router.post('/:id/message', studentController.addMessage);
 router.post('/:id/classes', studentController.joinClass);
+router.delete('/:id', studentController.deleteUser);
 
 module.exports = router;
