@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Login from './data/Login';
 import Signup from './data/Signup';
 import Page404 from './data/Page404';
@@ -11,6 +11,10 @@ import NavBar from './Reusable/Navbar';
 import Footer from './Reusable/Footer';
 
 function App() {
+  const history = useHistory();
+  history.pathes = history.pathes
+    ? [...history.pathes, history.location.pathname] : [history.location.pathname];
+  console.log(history);
   return (
     <div className="App">
       <NavBar route="/login" link="Login" />

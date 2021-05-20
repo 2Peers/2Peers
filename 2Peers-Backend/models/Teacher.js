@@ -15,6 +15,11 @@ class Teacher {
     const queryText = 'UPDATE teachers SET name = $1, email = $2 WHERE id = $3 RETURNING *;';
     return db.query(queryText, [name, email, id]).then((results) => results.rows[0]);
   }
+
+  static addMessage(teacherId, classId, message) {
+    const queryText = 'INSERT INTO teacherMessages (teacher, class, message, date) VALUES ($1, $2, $3, now());';
+    return db.query(queryText, [teacherId, classId, message]);
+  }
 }
 
 module.exports = Teacher;

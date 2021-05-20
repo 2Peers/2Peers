@@ -1,11 +1,17 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import Footer from '../Reusable/Footer';
 import MakeMessage from './MakeMessage';
 import Message from './Message';
 
 function Classroom() {
+  const history = useHistory();
+  console.log(history.pathes);
+  const lastUrl = history.pathes[history.pathes.length - 1];
+  const userId = lastUrl.split('/')[2];
+  const isStudent = (lastUrl.split('/')[1] === 'students');
+  console.log(userId, isStudent);
   const { id } = useParams();
   const [classHeading, setClassHeading] = useState('');
   const [messages, setMessages] = useState([]);
@@ -54,7 +60,7 @@ function Classroom() {
         ))}
       </div>
       <div className="compose-msg w-full py-1 flex justify-center">
-        <MakeMessage update={getMessages} />
+        <MakeMessage user={userId} isStudent={isStudent} update={getMessages} />
       </div>
       <Footer />
     </div>
