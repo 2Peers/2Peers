@@ -2,7 +2,6 @@ import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Footer from '../Reusable/Footer';
-import NavBar from '../Reusable/Navbar';
 import MakeMessage from './MakeMessage';
 import Message from './Message';
 
@@ -34,7 +33,6 @@ function Classroom() {
 
   return (
     <div className="classroom w-full">
-      <NavBar />
       <div className="Classname flex justify-center font-bold p-5">
         <p className="text-2xl text-gray-600 text-center">
           Class Code:

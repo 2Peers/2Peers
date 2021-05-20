@@ -7,13 +7,13 @@ import Classroom from './Classroom/Classroom';
 import Home from './Home/Home';
 import Teacher from './Teacher/Teacher';
 import Student from './Student/Student';
-// import Message from './Classroom/Message';
-// import Navbar from './Reusable/Navbar';
-// import Banner from './Reusable/Banner';
+import NavBar from './Reusable/Navbar';
+import Footer from './Reusable/Footer';
 
 function App() {
   return (
     <div className="App">
+      <NavBar route="/login" link="Login" />
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
@@ -23,6 +23,7 @@ function App() {
         <Route exact path="/students/:id" component={Student} />
         <Route path="/" component={Page404} />
       </Switch>
+      <Footer />
     </div>
   );
 }
