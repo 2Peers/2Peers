@@ -41,18 +41,26 @@ export default function ClassListing({ classroom, isStudent }) {
       <Link to={`/classrooms/${classroom}`}>
         <div className="class-heading">
           <p>{className}</p>
-          <p className="px-3 text-gray-400 text-sm font-medium">
-            {`Self Rating: ${selfRating}`}
-          </p>
-          <p className="px-3 text-gray-400 text-sm font-medium">
-            {`Peer Rating: ${peerRating}`}
-          </p>
+          { isStudent
+            ? (
+              <div>
+                <p className="px-3 text-gray-400 text-sm font-medium">
+                  {`Self Rating: ${selfRating}`}
+                </p>
+                <p className="px-3 text-gray-400 text-sm font-medium">
+                  {`Peer Rating: ${peerRating}`}
+                </p>
+              </div>
+            ) : null}
         </div>
       </Link>
-      <button type="button" onClick={() => { setEditVisible((prev) => !prev); }} className="shadow bg-green-400 hover:bg-green-500 focus:shadow-outline focus:outline-none text-white font-bold py-1 px-6 rounded mx-2 mb-2">
-        Edit
-      </button>
-      { editVisible
+      { isStudent
+        ? (
+          <button type="button" onClick={() => { setEditVisible((prev) => !prev); }} className="shadow bg-green-400 hover:bg-green-500 focus:shadow-outline focus:outline-none text-white font-bold py-1 px-6 rounded mx-2 mb-2">
+            Edit
+          </button>
+        ) : null}
+      { (editVisible && isStudent)
         ? (
           <EditSelfrating
             submission={(newRating) => {
