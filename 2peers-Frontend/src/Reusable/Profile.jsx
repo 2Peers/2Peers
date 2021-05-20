@@ -1,7 +1,8 @@
 import Axios from 'axios';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import TwoPeersContext from '../context/TwoPeersContext';
 import EditStudent from '../Student/EditStudent';
 import EditTeacher from '../Teacher/EditTeacher';
 
@@ -11,6 +12,7 @@ export default function Profile({ isStudent }) {
   const [email, setEmail] = useState('');
   const [pic, setPic] = useState('');
   const [edit, setEdit] = useState(false);
+  const userData = useContext(TwoPeersContext).setData;
   const { id } = useParams();
 
   useEffect(() => {
@@ -68,8 +70,10 @@ export default function Profile({ isStudent }) {
   const deleteUser = async () => {
     if (isStudent) {
       await Axios.delete(`/student/${id}`);
+      userData({});
     } else {
       await Axios.delete(`/teachers/${id}`);
+      userData({});
     }
     history.push('/');
   };
