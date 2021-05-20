@@ -40,6 +40,11 @@ class Classroom {
     const queryText = 'SELECT * FROM classes INNER JOIN teachermessages on classes.id = teachermessages.class WHERE classes.id = $1';
     return db.query(queryText, [id]).then((results) => results.rows);
   }
+
+  static updateSelfRating(classid, studentid, newRating) {
+    const queryText = 'UPDATE classmembers SET selfrating = $1 WHERE class_id = $2 AND student = $3 RETURNING *';
+    return db.query(queryText, [newRating, classid, studentid]).then((results) => results.rows[0]);
+  }
 }
 
 module.exports = { Classroom };

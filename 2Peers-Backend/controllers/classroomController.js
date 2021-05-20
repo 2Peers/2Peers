@@ -54,10 +54,22 @@ const getClassMessages = async (req, res) => {
   }
 };
 
+const updateSelfRating = async (req, res) => {
+  const { id, rating } = req.body;
+  const classid = req.params.id;
+  try {
+    const newRating = await Classroom.updateSelfRating(classid, id, rating);
+    res.status(200).json(newRating);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 module.exports = {
   getClass,
   getClasses,
   getClassMember,
   getClassMembers,
   getClassMessages,
+  updateSelfRating,
 };
