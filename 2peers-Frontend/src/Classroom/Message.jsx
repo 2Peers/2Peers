@@ -43,17 +43,19 @@ export default function Message({
   }
 
   const postRating = (idx) => {
-    const fetchOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        rating: idx,
-        id: raterId,
-      }),
-    };
-    fetch(`/messages/${id}`, fetchOptions);
+    if (userId !== userInfo) {
+      const fetchOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          rating: idx,
+          id: raterId,
+        }),
+      };
+      fetch(`/messages/${id}`, fetchOptions);
+    }
   };
 
   return (
@@ -77,7 +79,8 @@ export default function Message({
           </div>
         </div>
       </div>
-      {optionsVisible ? <EditMessage text={text} submission={setOptions} id={id} /> : null}
+      {(optionsVisible && userInfo === userId)
+        ? <EditMessage text={text} submission={setOptions} id={id} /> : null}
     </div>
   );
 }
