@@ -92,11 +92,22 @@ const getMessage = async (req, res) => {
   }
 };
 
+const getMessageRating = async (req, res) => {
+  const { id } = req.params;
+  const { messageid } = req.body;
+  try {
+    const rating = await StudentMessageRatings.getMessageRating(messageid, id);
+    res.status(200).json(rating);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 const patchMessage = async (req, res) => {
   const { id } = req.params;
-  const { message } = req.body;
+  const { messageid } = req.body;
   try {
-    const updatedMessage = await StudentMessages.patchMessage(id, message);
+    const updatedMessage = await StudentMessages.patchMessage(id, messageid);
     res.status(200).json(updatedMessage);
   } catch {
     res.sendStatus(500);
@@ -131,11 +142,12 @@ const patchMessageRating = async (req, res) => {
   const newRating = req.body.rating;
   // replacec studentid with session later
   const studentid = req.body.id;
+  console.log(messageid, newRating, studentid);
   try {
     const rating = await StudentMessageRatings.patchMessageRating(
       messageid, studentid, newRating,
     );
-    res.send(200).json(rating);
+    res.status(200).json(rating);
   } catch {
     res.sendStatus(500);
   }
@@ -171,6 +183,7 @@ module.exports = {
   getAvgMessageRatings,
   getMessage,
   getPeerRating,
+  getMessageRating,
   patchMessage,
   patchUser,
   patchMessageRating,

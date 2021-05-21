@@ -7,6 +7,7 @@ router.get('/:id/classes', studentController.getClasses);
 router.get('/:id', studentController.getStudentById);
 router.patch('/:id', studentController.patchUser);
 router.post('/:id/rating', studentController.getPeerRating);
+router.post('/:id', studentController.getMessageRating);
 router.post('/:id/message', studentController.addMessage);
 router.post('/:id/classes', studentController.joinClass);
 router.delete('/:id', studentController.deleteUser);

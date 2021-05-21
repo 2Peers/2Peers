@@ -9,22 +9,50 @@ export default function Message({
 }) {
   const [optionsVisible, setOptions] = useState(false);
   const [name, setName] = useState('');
+  const [rated, setRated] = useState(false);
   const [messageRating, setMessageRating] = useState('');
   const userInfo = useContext(TwoPeersContext).data.user.id;
 
+  const checkRating = async () => {
+    const info = await Axios.post(`/student/${userInfo}`, {
+      messageid: id,
+    });
+    console.log(info);
+    return info;
+  };
+
   useEffect(() => {
-    Axios.get(`/messages/${id}/rating`)
-      .then(({ data }) => {
-        setMessageRating('');
-        for (let i = 0; i < 5; i += 1) {
-          if (data === 0) {
-            setMessageRating('☆☆☆☆☆');
-            break;
+    if (userId === userInfo) {
+      Axios.get(`/messages/${id}/rating`)
+        .then(({ data }) => {
+          setMessageRating('');
+          for (let i = 0; i < 5; i += 1) {
+            if (data === 0) {
+              setMessageRating('☆☆☆☆☆');
+              break;
+            }
+            if (i > data - 1) setMessageRating((prev) => `${prev}☆`);
+            if (i <= data - 1) setMessageRating((prev) => `${prev}★`);
           }
-          if (i > data - 1) setMessageRating((prev) => `${prev}☆`);
-          if (i <= data - 1) setMessageRating((prev) => `${prev}★`);
+        });
+    } else {
+      checkRating().then((got) => {
+        if (got.data) {
+          let newRating = '';
+          for (let i = 0; i < 5; i += 1) {
+            if (i < got.data.rating) {
+              newRating += '★';
+            } else {
+              newRating += '☆';
+            }
+          }
+          setMessageRating(newRating);
+          setRated(true);
+        } else {
+          setMessageRating('☆☆☆☆☆');
         }
       });
+    }
     if (isStudent) {
       Axios.get(`/student/${userId}`)
         .then(({ data }) => {
@@ -44,17 +72,43 @@ export default function Message({
 
   const postRating = (idx) => {
     if (userId !== userInfo) {
-      const fetchOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      if (!rated) {
+        const fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            rating: idx,
+            id: raterId,
+          }),
+        };
+        fetch(`/messages/${id}`, fetchOptions);
+        let newRating = '';
+        for (let i = 0; i < 5; i += 1) {
+          if (i < idx) {
+            newRating += '★';
+          } else {
+            newRating += '☆';
+          }
+        }
+        setMessageRating(newRating);
+        setRated(true);
+      } else {
+        Axios.patch(`/messages/${id}/rating`, {
           rating: idx,
           id: raterId,
-        }),
-      };
-      fetch(`/messages/${id}`, fetchOptions);
+        });
+        let newRating = '';
+        for (let i = 0; i < 5; i += 1) {
+          if (i < idx) {
+            newRating += '★';
+          } else {
+            newRating += '☆';
+          }
+        }
+        setMessageRating(newRating);
+      }
     }
   };
 
@@ -63,7 +117,9 @@ export default function Message({
       <div className="message p-3 bg-green-100 ml-2 my-3 rounded overflow-hidden shadow-lg max-w-xs w-44">
         {
           isStudent ? (
-            <div className="rating w-full flex justify-center">
+            <div className={
+              rated ? 'rating w-full flex justify-center text-green-500' : 'rating w-full flex justify-center'
+           }>
               {messageRating.split('').map((star, idx) => <button type="button" onClick={() => { postRating(idx + 1); }}>{star}</button>)}
             </div>
           ) : (
