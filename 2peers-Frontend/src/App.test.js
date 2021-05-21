@@ -71,5 +71,39 @@ describe('Render SignIn and LogIn', () => {
     expect(screen.getByTestId('teacher-box')).toHaveTextContent('');
     // Submit button check
     expect(screen.getByTestId('signin-button')).toHaveTextContent('Sign In');
+    expect(screen.getByTestId('signup-link')).toHaveTextContent('Sign up here!');
+  });
+
+  test('Renders Signup without crashing', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('login'));
+    fireEvent.click(screen.getByTestId('signup-link'));
+    expect(screen.getAllByTestId('signup-form'));
+  });
+
+  test('Renders SignUp Headings', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('login'));
+    fireEvent.click(screen.getByTestId('signup-link'));
+    expect(screen.getByTestId('signup-heading')).toHaveTextContent('Sign Up');
+    expect(screen.getByTestId('signup-subheading')).toHaveTextContent('Lets get to tutoring!');
+  });
+
+  test('Renders SignUp Form Elements', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('login'));
+    fireEvent.click(screen.getByTestId('signup-link'));
+    // labels check
+    expect(screen.getByTestId('name-label')).toHaveTextContent('Name');
+    expect(screen.getByTestId('email-label')).toHaveTextContent('Email address');
+    expect(screen.getByTestId('password-label')).toHaveTextContent('Password');
+    expect(screen.getByTestId('teacher-label')).toHaveTextContent('Are you a teacher?');
+    // // input check
+    expect(screen.getByTestId('email-input')).toHaveTextContent('');
+    expect(screen.getByTestId('password-input')).toHaveTextContent('');
+    expect(screen.getByTestId('teacher-box')).toHaveTextContent('');
+    // // Submit button check
+    expect(screen.getByTestId('signup-button')).toHaveTextContent('Create Account');
+    expect(screen.getByTestId('signin-link')).toHaveTextContent('Already have an account? Sign in');
   });
 });
