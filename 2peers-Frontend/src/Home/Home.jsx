@@ -13,12 +13,12 @@ export default function Home() {
         <div className="">
           <div className="items-center md:flex md:space-x-6">
             <div className="md:w-1/2">
-              <h3 className="text-2xl font-semibold text-gray-800">
+              <h3 data-testid="mission-heading" className="text-2xl font-semibold text-gray-800">
                 2Peers
                 <br />
                 Mission Statement
               </h3>
-              <p className="max-w-md mt-4 text-gray-600">
+              <p data-testid="mission-statement" className="max-w-md mt-4 text-gray-600">
                 2Peers mission is to improve the learning
                 experience of students through the use of peer to peer
                 learning. By creating a virtual classroom envirnment students are
@@ -57,10 +57,10 @@ export default function Home() {
               </div>
             </div>
             <div className="mt-8 md:mt-0 md:w-1/2">
-              <h3 className="text-2xl font-semibold text-gray-800">
+              <h3 data-testid="team-heading" className="text-2xl font-semibold text-gray-800">
                 Our Team
               </h3>
-              <p className="max-w-md mt-4 text-gray-600">
+              <p data-testid="team-statement" className="max-w-md mt-4 text-gray-600">
                 Our team is composed of fullstack software developers
                 and seeks to improve the educational experience of students
                 through tools that allow them to communicate despite these

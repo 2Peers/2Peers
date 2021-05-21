@@ -18,7 +18,7 @@ function Footer() {
           </div>
         </div>
         <div className="opacity-60 pt-2">
-          <p>© 2021 2Peers Tutoring App</p>
+          <p data-testid="copyright">© 2021 2Peers Tutoring App</p>
         </div>
       </div>
     </div>

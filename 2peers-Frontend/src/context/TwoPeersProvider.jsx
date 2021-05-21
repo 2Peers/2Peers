@@ -42,10 +42,10 @@ function TwoPeersProvider({ children }) {
       .then((userSession) => {
         setData(userSession.data);
         if (userSession.data.checkbox === true) {
-          console.log(checkbox);
+          // console.log(checkbox);
           history.push(`/teachers/${userSession.data.user.id}`);
         } else {
-          console.log(checkbox);
+          // console.log(checkbox);
           history.push(`/student/${userSession.data.user.id}`);
         }
       });
