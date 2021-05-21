@@ -11,13 +11,12 @@ class Student {
     );
   }
 
-  static getStudent(body){
-    const queryText = 'SELECT * FROM students WHERE email = $1'
-    return db.query(queryText, [body.email]).then(results => results.rows[0]);
+  static getStudent(body) {
+    const queryText = 'SELECT * FROM students WHERE email = $1';
+    return db.query(queryText, [body.email]).then((results) => results.rows[0]);
   }
 
   static addMessage(details, id) {
-    console.log('adding message');
     // destructuring req.body to get message rating,
     // can not destructure class since class is a keyword...
     const { message } = details;

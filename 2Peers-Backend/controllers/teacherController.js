@@ -47,7 +47,6 @@ const postMessage = async (req, res) => {
   const { id } = req.params;
   const { message } = req.body;
   const classId = req.body.class;
-  console.log('teacher posting message');
   try {
     const newMessage = await Teacher.addMessage(id, classId, message);
     res.status(200).json(newMessage);
@@ -61,8 +60,7 @@ const deleteUser = async (req, res) => {
   try {
     await Teacher.deleteTeacher(id);
     res.sendStatus(200);
-  } catch (e) {
-    console.log(e);
+  } catch {
     res.sendStatus(500);
   }
 };
