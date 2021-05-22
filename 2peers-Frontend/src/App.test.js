@@ -3,6 +3,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import App from './App';
+// import Student from './Student/Student';
 
 describe('Landing Page', () => {
   test('Renders the Navbar', () => {
@@ -106,4 +107,67 @@ describe('Render SignIn and LogIn', () => {
     expect(screen.getByTestId('signup-button')).toHaveTextContent('Create Account');
     expect(screen.getByTestId('signin-link')).toHaveTextContent('Already have an account? Sign in');
   });
+
+  test('Switch back to SignIn route', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('login'));
+    fireEvent.click(screen.getByTestId('signup-link'));
+    fireEvent.click(screen.getByTestId('login'));
+  });
+
+  test('Signup with test user', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('login'));
+    fireEvent.click(screen.getByTestId('signup-link'));
+
+    const nameInput = screen.getByTestId('name-input');
+    expect(nameInput).toHaveTextContent('');
+    fireEvent.change(screen.getByTestId('name-input'), { target: { value: 'Test' } });
+    expect(nameInput.value).toBe('Test');
+
+    const emailInput = screen.getByTestId('email-input');
+    expect(emailInput).toHaveTextContent('');
+    fireEvent.change(screen.getByTestId('email-input'), { target: { value: 'Test@gmail.com' } });
+    expect(emailInput.value).toBe('Test@gmail.com');
+
+    const passwordInput = screen.getByTestId('password-input');
+    expect(passwordInput).toHaveTextContent('');
+    fireEvent.change(screen.getByTestId('password-input'), { target: { value: 'Test' } });
+    expect(passwordInput.value).toBe('Test');
+
+    const teacherBox = screen.getByTestId('teacher-box');
+    expect(teacherBox.checked).toBe(false);
+    fireEvent.click(teacherBox);
+    expect(teacherBox.checked).toBe(true);
+  });
+
+  test('Signin Attempt with an existing user', () => {
+    render(<App />);
+    fireEvent.click(screen.getByTestId('login'));
+
+    const emailInput = screen.getByTestId('email-input');
+    expect(emailInput).toHaveTextContent('');
+    fireEvent.change(screen.getByTestId('email-input'), { target: { value: 'Test@gmail.com' } });
+    expect(emailInput.value).toBe('Test@gmail.com');
+
+    const passwordInput = screen.getByTestId('password-input');
+    expect(passwordInput).toHaveTextContent('');
+    fireEvent.change(screen.getByTestId('password-input'), { target: { value: 'Test' } });
+    expect(passwordInput.value).toBe('Test');
+
+    const teacherBox = screen.getByTestId('teacher-box');
+    expect(teacherBox.checked).toBe(false);
+    fireEvent.click(teacherBox);
+    expect(teacherBox.checked).toBe(true);
+
+    fireEvent.click(screen.getByTestId('signin-button'));
+    expect(screen.getByTestId('teacher-page'));
+  });
 });
+
+// describe('Render Student View', () => {
+//   test('Student Profile', () => {
+//     render(<App />);
+//     expect(screen.getByTestId('student-page'));
+//   });
+// });
