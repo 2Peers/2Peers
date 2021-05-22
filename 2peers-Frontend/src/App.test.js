@@ -139,11 +139,14 @@ describe('Render SignIn and LogIn', () => {
     expect(teacherBox.checked).toBe(false);
     fireEvent.click(teacherBox);
     expect(teacherBox.checked).toBe(true);
+
+    fireEvent.click(screen.getByTestId('signup-button'));
   });
 
   test('Signin Attempt with an existing user', () => {
     render(<App />);
     fireEvent.click(screen.getByTestId('login'));
+    fireEvent.click(screen.getByTestId('signin-button'));
 
     const emailInput = screen.getByTestId('email-input');
     expect(emailInput).toHaveTextContent('');
@@ -159,9 +162,6 @@ describe('Render SignIn and LogIn', () => {
     expect(teacherBox.checked).toBe(false);
     fireEvent.click(teacherBox);
     expect(teacherBox.checked).toBe(true);
-
-    // fireEvent.click(screen.getByTestId('signin-button'));
-    // expect(screen.getByTestId('teacher-page'));
   });
 });
 
