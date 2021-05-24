@@ -56,6 +56,17 @@ const postMessage = async (req, res) => {
   }
 };
 
+const patchMessage = async (req, res) => {
+  const { id } = req.params;
+  const { message } = req.body;
+  try {
+    const patchedMessage = await Teacher.patchMessage(id, message);
+    res.status(200).json(patchedMessage);
+  } catch {
+    res.sendStatus(500);
+  }
+};
+
 const deleteUser = async (req, res) => {
   const { id } = req.params;
   try {
@@ -72,6 +83,7 @@ module.exports = {
   getClasses,
   getTeacherById,
   patchUser,
+  patchMessage,
   postMessage,
   deleteUser,
 };

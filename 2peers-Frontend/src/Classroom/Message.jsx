@@ -136,7 +136,7 @@ export default function Message({
         </div>
       </div>
       {(optionsVisible && userInfo === userId)
-        ? <EditMessage text={text} submission={setOptions} id={id} /> : null}
+        ? <EditMessage isStudent={isStudent} text={text} submission={setOptions} id={id} /> : null}
     </div>
   );
 }

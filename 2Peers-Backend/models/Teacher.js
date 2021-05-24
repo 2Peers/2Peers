@@ -36,6 +36,11 @@ class Teacher {
     return db.query(queryText, [teacherId, classId, message]);
   }
 
+  static patchMessage(messageid, message) {
+    const queryText = 'UPDATE teachermessages SET message = $1 WHERE id = $2 RETURNING *;';
+    return db.query(queryText, [message, messageid]).then((results) => results.rows[0]);
+  }
+
   static deleteTeacher(teacherid) {
     const queryText = 'DELETE FROM teachers WHERE id = $1';
     return db.query(queryText, [teacherid]);
