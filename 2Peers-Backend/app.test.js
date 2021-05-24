@@ -38,15 +38,29 @@ it('Posts a test student', (done) => {
     .end((err, res) => {
       if (err) return done(err);
       expect(res.body).toStrictEqual({ message: 'signed up as a student' });
-      // extra student test
       return done();
     });
 });
 
-const makeClass = (teacher, done) => {
-  request.post(`/teachers/${teacher.user.id}/classes`)
+const postMessageRating = async (student, message, done) => {
+  request.post(`/messages/${message.id}`)
     .send({
-      code: 'Test',
+      id: student.user.id - 1,
+      rating: 5,
+    })
+    .set('Accept', 'application/json')
+    .expect(200)
+    .end((err) => {
+      if (err) return done(err);
+      return true;
+    });
+};
+
+const patchMessageRating = async (message, done) => {
+  request.patch(`/messages/${message.id}/rating`)
+    .send({
+      rating: 1,
+      id: message.student - 1,
     })
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
@@ -55,8 +69,9 @@ const makeClass = (teacher, done) => {
       if (err) return done(err);
       expect(res.body).toStrictEqual({
         id: res.body.id,
-        teacher_id: res.body.teacher_id,
-        classcode: 'Test',
+        messageid: message.id,
+        raterid: message.student - 1,
+        rating: 1,
       });
       return true;
     });
@@ -80,6 +95,8 @@ const postMessage = async (student, classData, done) => {
         message: 'Test message',
         student: student.user.id,
       });
+      postMessageRating(student, res.body, done);
+      patchMessageRating(res.body, done);
       return true;
     });
 };
@@ -142,6 +159,41 @@ const getPeerRating = async (student, done) => {
       expect(res.body).toStrictEqual({
         rating: res.body.rating || null,
       });
+      return true;
+    });
+};
+
+const postTeacherMessage = async (classRoom, teacher, done) => {
+  request.post(`/teachers/${teacher.user.id}/message`)
+    .send({
+      message: 'Teacher test message',
+      class: classRoom.id,
+    })
+    .set('Accept', 'application/json')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err) => {
+      if (err) return done(err);
+      return true;
+    });
+};
+
+const makeClass = (teacher, done) => {
+  request.post(`/teachers/${teacher.user.id}/classes`)
+    .send({
+      code: 'Test',
+    })
+    .set('Accept', 'application/json')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .end((err, res) => {
+      if (err) return done(err);
+      expect(res.body).toStrictEqual({
+        id: res.body.id,
+        teacher_id: res.body.teacher_id,
+        classcode: 'Test',
+      });
+      postTeacherMessage(res.body, teacher, done);
       return true;
     });
 };

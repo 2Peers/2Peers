@@ -142,7 +142,7 @@ const patchMessageRating = async (req, res) => {
   const newRating = req.body.rating;
   // replacec studentid with session later
   const studentid = req.body.id;
-  console.log(messageid, newRating, studentid);
+  // console.log(messageid, newRating, studentid);
   try {
     const rating = await StudentMessageRatings.patchMessageRating(
       messageid, studentid, newRating,
