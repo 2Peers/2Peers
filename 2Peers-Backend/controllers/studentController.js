@@ -105,9 +105,9 @@ const getMessageRating = async (req, res) => {
 
 const patchMessage = async (req, res) => {
   const { id } = req.params;
-  const { messageid } = req.body;
+  const { message } = req.body;
   try {
-    const updatedMessage = await StudentMessages.patchMessage(id, messageid);
+    const updatedMessage = await StudentMessages.patchMessage(id, message);
     res.status(200).json(updatedMessage);
   } catch {
     res.sendStatus(500);
