@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS classes CASCADE;
 DROP TABLE IF EXISTS classMembers CASCADE;
 DROP TABLE IF EXISTS studentMessages CASCADE;
 DROP TABLE IF EXISTS teacherMessages CASCADE;
+DROP TABLE IF EXISTS studentRatings CASCADE;
+DROP TABLE IF EXISTS teacherRatings CASCADE;
 
 CREATE TABLE subjects (
     id SERIAL PRIMARY KEY,
@@ -82,6 +84,15 @@ CREATE TABLE studentRatings (
     FOREIGN KEY (messageid) REFERENCES studentMessages(id) ON DELETE CASCADE
 );
 
+CREATE TABLE teacherRatings (
+    id SERIAL PRIMARY KEY,
+    raterid int,
+    messageid int,
+    rating int,
+    FOREIGN KEY (raterid) REFERENCES teachers(id) ON DELETE CASCADE,
+    FOREIGN KEY (messageid) REFERENCES studentMessages(id) ON DELETE CASCADE
+);
+
 INSERT INTO subjects (name) VALUES ('math');
 INSERT INTO teachers (name, email, profilePic, subject, encryptedPassword, archived) VALUES ('ms', 'ms@email.com', '#', 1, 'oneWord', FALSE);
 INSERT INTO students (name, email, profilePic, encryptedPassword, archived) VALUES ('izzy', 'iz@email.com', '#', 'words', FALSE);
@@ -91,3 +102,4 @@ INSERT INTO classMembers (student, selfRating, peerRating, class_id) VALUES (1, 
 INSERT INTO studentMessages (student, class, message, date) VALUES (1, 1, 'Some Message', now());
 INSERT INTO teacherMessages (teacher, class, message, date) VALUES (1, 1, 'Some Message', now());
 INSERT INTO studentRatings (raterid, messageid, rating) VALUES (2, 1, 3);
+INSERT INTO teacherRatings (raterid, messageid, rating) VALUES (1, 1, 4);

@@ -12,17 +12,23 @@ export default function Message({
   const [rated, setRated] = useState(false);
   const [messageRating, setMessageRating] = useState('');
   const userInfo = useContext(TwoPeersContext).data.user.id;
+  const userData = useContext(TwoPeersContext).data;
 
   const checkRating = async () => {
-    const info = await Axios.post(`/student/${userInfo}`, {
+    if (userData.role === 'student') {
+      const info = await Axios.post(`/student/${userInfo}`, {
+        messageid: id,
+      });
+      return info;
+    }
+    const info = await Axios.post(`/teachers/${userInfo}/exists`, {
       messageid: id,
     });
-    console.log(info);
     return info;
   };
 
   useEffect(() => {
-    if (userId === userInfo) {
+    if (userId === userInfo && (userData.role === 'student') === isStudent) {
       Axios.get(`/messages/${id}/rating`)
         .then(({ data }) => {
           setMessageRating('');
@@ -71,7 +77,7 @@ export default function Message({
   }
 
   const postRating = (idx) => {
-    if (userId !== userInfo) {
+    if (userId !== userInfo || (userData.role === 'student') !== isStudent) {
       if (!rated) {
         const fetchOptions = {
           method: 'POST',
@@ -83,7 +89,11 @@ export default function Message({
             id: raterId,
           }),
         };
-        fetch(`/messages/${id}`, fetchOptions);
+        if (userData.role === 'student') {
+          fetch(`/messages/${id}`, fetchOptions);
+        } else {
+          fetch(`/teachers/${id}/rating`, fetchOptions);
+        }
         let newRating = '';
         for (let i = 0; i < 5; i += 1) {
           if (i < idx) {
@@ -95,10 +105,17 @@ export default function Message({
         setMessageRating(newRating);
         setRated(true);
       } else {
-        Axios.patch(`/messages/${id}/rating`, {
-          rating: idx,
-          id: raterId,
-        });
+        if (userData.role === 'student') {
+          Axios.patch(`/messages/${id}/rating`, {
+            rating: idx,
+            id: raterId,
+          });
+        } else {
+          Axios.patch(`/teachers/${id}/rating`, {
+            rating: idx,
+            id: raterId,
+          });
+        }
         let newRating = '';
         for (let i = 0; i < 5; i += 1) {
           if (i < idx) {
@@ -113,7 +130,7 @@ export default function Message({
   };
 
   return (
-    <div className={userInfo === userId ? 'flex justify-end' : ''}>
+    <div className={(userInfo === userId) && (userData.role === 'student') === isStudent ? 'flex justify-end' : ''}>
       <div className="message p-3 bg-green-100 ml-2 my-3 rounded overflow-hidden shadow-lg max-w-xs w-44">
         {
           isStudent ? (
@@ -135,8 +152,8 @@ export default function Message({
           </div>
         </div>
       </div>
-      {(optionsVisible && userInfo === userId)
-        ? <EditMessage text={text} submission={setOptions} id={id} /> : null}
+      {(optionsVisible && userInfo === userId && (userData.role === 'student') === isStudent)
+        ? <EditMessage isStudent={isStudent} text={text} submission={setOptions} id={id} /> : null}
     </div>
   );
 }

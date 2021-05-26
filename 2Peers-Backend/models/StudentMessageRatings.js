@@ -25,7 +25,7 @@ class StudentMessageRatings {
   }
 
   static deleteMessageRating(studentid, messageid) {
-    const queryText = 'DELETE FROM studentratings WHERE studentid = $1 AND messageid = $2;';
+    const queryText = 'DELETE FROM studentratings WHERE raterid = $1 AND messageid = $2;';
     return db.query(queryText, [studentid, messageid]);
   }
 }

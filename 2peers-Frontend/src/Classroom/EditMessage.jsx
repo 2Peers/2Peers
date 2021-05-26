@@ -2,14 +2,22 @@ import Axios from 'axios';
 import PropTypes from 'prop-types';
 import { React, useState } from 'react';
 
-export default function EditMessage({ text, submission, id }) {
+export default function EditMessage({
+  text, submission, id, isStudent,
+}) {
   const [messageTxt, setMessageTxt] = useState(text);
 
   function patchMessage(e) {
     e.preventDefault();
-    Axios.patch(`/messages/${id}`, {
-      message: messageTxt,
-    });
+    if (isStudent) {
+      Axios.patch(`/messages/${id}`, {
+        message: messageTxt,
+      });
+    } else {
+      Axios.patch(`/teachers/${id}/message`, {
+        message: messageTxt,
+      });
+    }
     submission();
   }
 
@@ -51,10 +59,12 @@ EditMessage.propTypes = {
   text: PropTypes.string,
   submission: PropTypes.func,
   id: PropTypes.number,
+  isStudent: PropTypes.bool,
 };
 
 EditMessage.defaultProps = {
   text: null,
   submission: null,
   id: null,
+  isStudent: true,
 };

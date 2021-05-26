@@ -2,6 +2,7 @@ const { Student } = require('../models/Student');
 const { Classroom } = require('../models/Classroom');
 const { StudentMessages } = require('../models/StudentMessages');
 const { StudentMessageRatings } = require('../models/StudentMessageRatings');
+const { TeacherMessageRating } = require('../models/TeacherMessageRatings');
 
 const addMessage = async (req, res) => {
   // student id to get the specific student that is sending the message
@@ -38,7 +39,8 @@ const getPeerRating = async (req, res) => {
     const calcTotalAvg = async (messages) => {
       const ratings = messages.map(async (msg) => {
         const rating = await StudentMessageRatings.getAvgMessageRatings(msg.id);
-        return Number(rating.avg);
+        const teacherRating = await TeacherMessageRating.getAvgMessageRatings(msg.id);
+        return ((Number(rating.avg) * 0.25) + (Number(teacherRating.avg) * 0.75));
       });
       const resolvedRatings = await Promise.all(ratings);
       const total = resolvedRatings.reduce((acc, cur) => acc + cur, 0) / messages.length;
@@ -131,7 +133,8 @@ const getAvgMessageRatings = async (req, res) => {
   const { id } = req.params;
   try {
     const rating = await StudentMessageRatings.getAvgMessageRatings(id);
-    res.status(200).json(Number(rating.avg));
+    const teacherRatings = await TeacherMessageRating.getAvgMessageRatings(id);
+    res.status(200).json((Number(rating.avg) * 0.25) + (Number(teacherRatings.avg) * 0.75));
   } catch {
     res.sendStatus(500);
   }
