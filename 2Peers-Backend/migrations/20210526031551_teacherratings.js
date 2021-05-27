@@ -4,8 +4,12 @@ exports.up = function (knex) {
     table.integer('raterid');
     table.integer('messageid');
     table.integer('rating');
-    table.foreign('raterid').references('teachers.id');
-    table.foreign('messageid').references('studentmessages.id');
+    table.foreign('raterid').references('teachers.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
+    table.foreign('messageid').references('studentmessages.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
     table.timestamps();
   });
 };

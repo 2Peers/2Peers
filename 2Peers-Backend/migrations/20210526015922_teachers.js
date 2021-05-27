@@ -3,11 +3,13 @@ exports.up = function (knex) {
     table.increments('id').primary();
     table.string('name');
     table.string('email').unique().notNullable();
-    table.string('profilePic');
+    table.string('prolfilepic');
     table.integer('subject');
-    table.string('encryptedPassword').notNullable();
+    table.string('encryptedpassword').notNullable();
     table.boolean('archived');
-    table.foreign('subject').references('subjects.id');
+    table.foreign('subject').references('subjects.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
     table.timestamps();
   });
 };

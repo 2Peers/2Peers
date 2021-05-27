@@ -140,7 +140,9 @@ const patchUser = async (student, done) => {
         email: 'Testing@gmail.com',
         encryptedpassword: res.body.encryptedpassword,
         name: 'Test',
-        profilepic: res.body.profilepic,
+        prolfilepic: res.body.prolfilepic,
+        created_at: null,
+        updated_at: null,
       });
       return true;
     });
@@ -172,11 +174,22 @@ const postTeacherMessage = async (classRoom, teacher, done) => {
     .set('Accept', 'application/json')
     .expect('Content-Type', /json/)
     .expect(200)
-    .end((err) => {
+    .end((err, res) => {
       if (err) return done(err);
+      expect(res.body).toStrictEqual({
+        id: res.body.id,
+        teacher: teacher.user.id,
+        class: classRoom.id,
+        message: 'Teacher test message',
+        date: res.body.date,
+        created_at: null,
+        updated_at: null,
+      });
       return true;
     });
 };
+
+// const patchTeacherMessage = async (teacher)
 
 const makeClass = (teacher, done) => {
   request.post(`/teachers/${teacher.user.id}/classes`)
@@ -192,6 +205,8 @@ const makeClass = (teacher, done) => {
         id: res.body.id,
         teacher_id: res.body.teacher_id,
         classcode: 'Test',
+        created_at: null,
+        updated_at: null,
       });
       postTeacherMessage(res.body, teacher, done);
       return true;
@@ -218,10 +233,12 @@ it('Test teacher routes', (done) => {
           id: res.body.user.id,
           name: 'Test',
           email: 'Test@gmail.com',
-          profilepic: 'https://i.pinimg.com/originals/56/b4/9f/56b49f8fe357deecf54ad7805209d79e.png',
+          prolfilepic: 'https://i.pinimg.com/originals/56/b4/9f/56b49f8fe357deecf54ad7805209d79e.png',
           subject: null,
           encryptedpassword: res.body.user.encryptedpassword,
           archived: false,
+          created_at: null,
+          updated_at: null,
         },
         valid: true,
         role: 'teacher',
@@ -246,17 +263,19 @@ it('Test student routes', (done) => {
     .end((err, res) => {
       if (err) return done(err);
       const student = res.body;
-      joinClass(student, done);
+      // joinClass(student, done);
       patchUser(student, done);
-      getPeerRating(student, done);
+      // getPeerRating(student, done);
       expect(res.body).toStrictEqual({
         user: {
           id: res.body.user.id,
           name: 'Test',
           email: 'Test@gmail.com',
-          profilepic: 'https://www.pngitem.com/pimgs/m/77-778738_transparent-indian-elephant-png-cartoon-elephant-side-view.png',
+          prolfilepic: 'https://www.pngitem.com/pimgs/m/77-778738_transparent-indian-elephant-png-cartoon-elephant-side-view.png',
           encryptedpassword: res.body.user.encryptedpassword,
           archived: false,
+          created_at: null,
+          updated_at: null,
         },
         valid: true,
         role: 'student',

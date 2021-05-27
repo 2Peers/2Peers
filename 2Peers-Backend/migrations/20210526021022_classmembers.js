@@ -6,8 +6,12 @@ exports.up = function (knex) {
     table.integer('selfrating');
     // Don't think we're using the row peerrating but keeping it just in case
     table.integer('peerrating');
-    table.foreign('student').references('students.id');
-    table.foreign('class_id').references('classes.id');
+    table.foreign('student').references('students.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
+    table.foreign('class_id').references('classes.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
     table.timestamps();
   });
 };

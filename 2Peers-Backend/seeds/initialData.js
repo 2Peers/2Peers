@@ -31,9 +31,9 @@ exports.seed = async (knex) => {
       {
         name: 'math teacher',
         email: 'math@email.com',
-        profilePic: '#',
+        prolfilepic: '#',
         subject: 1,
-        encryptedPassword: makeHashedPass(teacherPassword),
+        encryptedpassword: makeHashedPass(teacherPassword),
         archived: false,
       },
     ]))
@@ -41,22 +41,22 @@ exports.seed = async (knex) => {
       {
         name: 'izzy',
         email: 'iz@email.com',
-        profilePic: '#',
-        encryptedPassword: makeHashedPass(izzyPassword),
+        prolfilepic: '#',
+        encryptedpassword: makeHashedPass(izzyPassword),
         archived: false,
       },
       {
         name: 'jas',
         email: 'jas@email.com',
-        profilePic: '#',
-        encryptedPassword: makeHashedPass(jasPassword),
+        prolfilepic: '#',
+        encryptedpassword: makeHashedPass(jasPassword),
         archived: false,
       },
       {
         name: 'drea',
         email: 'drea@email.com',
-        profilePic: '#',
-        encryptedPassword: makeHashedPass(dreaPassword),
+        prolfilepic: '#',
+        encryptedpassword: makeHashedPass(dreaPassword),
         archived: false,
       },
     ]))

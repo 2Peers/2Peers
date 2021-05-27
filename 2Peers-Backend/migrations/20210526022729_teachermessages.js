@@ -5,8 +5,12 @@ exports.up = function (knex) {
     table.integer('class');
     table.string('message');
     table.timestamp('date').defaultTo(knex.fn.now());
-    table.foreign('class').references('classes.id');
-    table.foreign('teacher').references('teachers.id');
+    table.foreign('class').references('classes.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
+    table.foreign('teacher').references('teachers.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
     table.timestamps();
   });
 };

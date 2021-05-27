@@ -3,7 +3,9 @@ exports.up = function (knex) {
     table.increments('id').primary();
     table.string('classcode');
     table.integer('teacher_id');
-    table.foreign('teacher_id').references('teachers.id');
+    table.foreign('teacher_id').references('teachers.id')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
     table.timestamps();
   });
 };

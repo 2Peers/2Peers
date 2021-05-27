@@ -19,22 +19,22 @@ CREATE TABLE teachers (
     id SERIAL PRIMARY KEY,
     name TEXT, 
     email TEXT, 
-    profilePic Text, 
+    prolfilepic Text, 
     subject int, 
-    encryptedPassword TEXT,
+    encryptedpassword TEXT,
     archived BOOLEAN,
     FOREIGN KEY (subject) REFERENCES subjects(id) ON DELETE CASCADE
 );
 
-INSERT INTO teachers (name, email, profilePic, subject, encryptedPassword, archived)
+INSERT INTO teachers (name, email, prolfilepic, subject, encryptedpassword, archived)
 VALUES ('math teacher', 'math@email.com', '#', 1, 'password', FALSE);
 
 CREATE TABLE students (
     id SERIAL PRIMARY KEY,
     name TEXT, 
     email TEXT, 
-    profilePic Text, 
-    encryptedPassword TEXT,
+    prolfilepic Text, 
+    encryptedpassword TEXT,
     archived BOOLEAN
 );
 
@@ -94,9 +94,9 @@ CREATE TABLE teacherRatings (
 );
 
 INSERT INTO subjects (name) VALUES ('math');
-INSERT INTO teachers (name, email, profilePic, subject, encryptedPassword, archived) VALUES ('ms', 'ms@email.com', '#', 1, 'oneWord', FALSE);
-INSERT INTO students (name, email, profilePic, encryptedPassword, archived) VALUES ('izzy', 'iz@email.com', '#', 'words', FALSE);
-INSERT INTO students (name, email, profilePic, encryptedPassword, archived) VALUES ('jas', 'jas@email.com', '#', 'jas', FALSE);
+INSERT INTO teachers (name, email, prolfilepic, subject, encryptedpassword, archived) VALUES ('ms', 'ms@email.com', '#', 1, 'oneWord', FALSE);
+INSERT INTO students (name, email, prolfilepic, encryptedpassword, archived) VALUES ('izzy', 'iz@email.com', '#', 'words', FALSE);
+INSERT INTO students (name, email, prolfilepic, encryptedpassword, archived) VALUES ('jas', 'jas@email.com', '#', 'jas', FALSE);
 INSERT INTO classes (classCode, teacher_id) VALUES ('abc123', 1);
 INSERT INTO classMembers (student, selfRating, peerRating, class_id) VALUES (1, 5, 3, 1);
 INSERT INTO studentMessages (student, class, message, date) VALUES (1, 1, 'Some Message', now());
