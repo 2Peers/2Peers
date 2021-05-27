@@ -1,7 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable('classes', (table) => {
     table.increments('id').primary();
-    table.string('classcode');
+    table.string('classcode').unique();
     table.integer('teacher_id');
     table.foreign('teacher_id').references('teachers.id')
       .onUpdate('CASCADE')

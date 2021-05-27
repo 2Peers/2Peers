@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 
 /** Must be exec'd synhronously for it to work */
-async function makeHashedPass(plainTxtPassword) {
+function makeHashedPass(plainTxtPassword) {
   const hash = bcrypt.hashSync(plainTxtPassword, 10);
   return hash;
 }
@@ -31,7 +31,7 @@ exports.seed = async (knex) => {
       {
         name: 'math teacher',
         email: 'math@email.com',
-        prolfilepic: '#',
+        prolfilepic: 'https://i.pinimg.com/originals/56/b4/9f/56b49f8fe357deecf54ad7805209d79e.png',
         subject: 1,
         encryptedpassword: makeHashedPass(teacherPassword),
         archived: false,
@@ -41,21 +41,21 @@ exports.seed = async (knex) => {
       {
         name: 'izzy',
         email: 'iz@email.com',
-        prolfilepic: '#',
+        prolfilepic: 'https://www.pngitem.com/pimgs/m/77-778738_transparent-indian-elephant-png-cartoon-elephant-side-view.png',
         encryptedpassword: makeHashedPass(izzyPassword),
         archived: false,
       },
       {
         name: 'jas',
         email: 'jas@email.com',
-        prolfilepic: '#',
+        prolfilepic: 'https://www.pngitem.com/pimgs/m/77-778738_transparent-indian-elephant-png-cartoon-elephant-side-view.png',
         encryptedpassword: makeHashedPass(jasPassword),
         archived: false,
       },
       {
         name: 'drea',
         email: 'drea@email.com',
-        prolfilepic: '#',
+        prolfilepic: 'https://www.pngitem.com/pimgs/m/77-778738_transparent-indian-elephant-png-cartoon-elephant-side-view.png',
         encryptedpassword: makeHashedPass(dreaPassword),
         archived: false,
       },
