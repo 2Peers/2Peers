@@ -66,7 +66,7 @@ function Classroom({ ...props }) {
         </div>
       </div>
       <hr className="mx-5" />
-      <div className="msg-container w-full p-3">
+      <div className="msg-container w-full pb-80">
         {/* map when connected to backend */}
         {messages.map((data) => (
           <Message
@@ -79,7 +79,7 @@ function Classroom({ ...props }) {
           />
         ))}
       </div>
-      <div className="compose-msg w-full py-1 flex justify-center">
+      <div className="compose-msg w-full py-3 flex justify-center">
         <MakeMessage
           userId={info.user ? info.user.id : 0}
           isStudent={info ? !(info.checkbox) : true}

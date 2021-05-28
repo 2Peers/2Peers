@@ -50,7 +50,7 @@ export default function EditTeacher({
                   <div>
                     <h1>Edit Teacher Page</h1>
                     <br />
-                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div className="mt-1 flex justify-center px-6 pt-10 pb-10 border-2 border-gray-300 border-dashed rounded-md hover:border-green-300">
                       <div {...getRootProps()} className="space-y-1 text-center">
                         {editedPic}
                         <div className="flex text-sm text-gray-600">

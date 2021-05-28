@@ -13,7 +13,6 @@ import Teacher from './Teacher/Teacher';
 import Student from './Student/Student';
 import NavBar from './Reusable/Navbar';
 import ProtectedRoute from './AuthRoutes/ProtectedRoute';
-import Footer from './Reusable/Footer';
 import TwoPeersProvider from './context/TwoPeersProvider';
 
 function App() {
@@ -21,7 +20,7 @@ function App() {
     <BrowserRouter>
       <TwoPeersProvider>
         <div className="App">
-          <NavBar route="/login" link="Login" />
+          <NavBar />
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
@@ -31,7 +30,6 @@ function App() {
             <ProtectedRoute exact path="/student/:id" component={Student} />
             <Route path="/" component={Page404} />
           </Switch>
-          <Footer />
         </div>
       </TwoPeersProvider>
     </BrowserRouter>

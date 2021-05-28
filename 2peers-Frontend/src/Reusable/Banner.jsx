@@ -16,9 +16,7 @@ function Banner() {
               <span className="md:hidden">
                 This is the banner mobile view.
               </span>
-              <span className="hidden md:inline">
-                Hello I am the banner... idk what else to say...
-              </span>
+              <span className="hidden md:inline" />
             </p>
           </div>
           <div className="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">

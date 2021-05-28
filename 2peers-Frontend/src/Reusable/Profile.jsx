@@ -16,8 +16,6 @@ export default function Profile({ isStudent, ...props }) {
   const { ...match } = props;
   const { params: { id } } = match;
 
-  console.log('profile pic:', pic);
-
   useEffect(() => {
     if (isStudent) {
       Axios.get(`/student/${id}`)
@@ -29,7 +27,7 @@ export default function Profile({ isStudent, ...props }) {
     } else {
       Axios.get(`/teachers/${id}`)
         .then(({ data }) => {
-          console.log('data :', data);
+          // console.log('data :', data);
           setName(data.name);
           setEmail(data.email);
           setPic(data.profilepic);
@@ -104,12 +102,12 @@ export default function Profile({ isStudent, ...props }) {
 
   return (
     <>
-      <div className="flex flex-col text-center w-full mt-5">
+      <div className="flex flex-col text-center w-full mt-5 pb-20">
         <h2 className="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">{isStudent ? 'STUDENT PAGE' : 'TEACHER PAGE'}</h2>
       </div>
       <div className="container my-24">
         <div>
-          <div className="bg-white relative shadow-xl w-5/6 md:w-4/6  lg:w-3/6 xl:w-2/6 mx-auto">
+          <div className="bg-white relative shadow-xl pb-4 w-5/6 md:w-4/6  lg:w-3/6 xl:w-2/6 mx-auto">
             <div className="flex justify-center">
               <img src={pic} alt="pic" className="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-2xl border-4 border-white" />
             </div>

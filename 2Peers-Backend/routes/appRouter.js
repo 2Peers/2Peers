@@ -10,11 +10,13 @@ let userSess = { user: '', valid: '', role: '', session: '' };
 router.post('/signup', async (req, res) => {
   try {
     if (req.body.checkbox === true) {
+      debugger;
       await bcrypt.hash(req.body.encryptedpassword, 10, (err, hash) => {
         if (err) {
           res.send({ message: 'error' });
         } else {
           req.body.encrypt = hash;
+          debugger;
           Teacher.signUp(req.body);
           res.send({ message: 'signed up as a teacher' });
         }

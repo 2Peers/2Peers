@@ -132,7 +132,7 @@ export default function Message({
 
   return (
     <div className={(userInfo === userId) && (userData.role === 'student') === isStudent ? 'flex justify-end' : ''}>
-      <div className="message p-3 bg-green-100 ml-2 my-3 rounded overflow-hidden shadow-lg max-w-xs w-44">
+      <div className="message p-3 bg-green-100 ml-4 my-3 rounded overflow-hidden shadow-lg max-w-xs w-44">
         {
           isStudent ? (
             <div className={
