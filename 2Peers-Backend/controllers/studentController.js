@@ -6,11 +6,15 @@ const { TeacherMessageRating } = require('../models/TeacherMessageRatings');
 
 const addMessage = async (req, res) => {
   // student id to get the specific student that is sending the message
+  console.log(req.body.body);
   const studentId = req.params.id;
+  const message = req.body.body.message;
+  const classId = req.body.body.classId;
   try {
     // send new message information to the database with all student messages
     // sending student id, in the body only specify class by id, message text and message rating
-    const newMessage = await Student.addMessage(req.body, studentId);
+    const newMessage = await Student.addMessage(studentId, classId, message);
+    console.log(newMessage);
     res.status(201).json(newMessage);
   } catch {
     // if new message could not be created, status of 404 should appear.

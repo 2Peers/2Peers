@@ -16,16 +16,13 @@ class Student {
     return db.query(queryText, [body.email]).then((results) => results.rows[0]);
   }
 
-  static addMessage(details, id) {
-    // destructuring req.body to get message rating,
-    // can not destructure class since class is a keyword...
-    const { message } = details;
+  static addMessage(studentId, classId, message) {
+    // console.log('adding message');
     // psql command to insert data into the studentmessages table
     const queryText = 'INSERT INTO studentmessages (student, class, message, date) VALUES ($1, $2, $3, NOW()) RETURNING *;';
     // will return the information we just sent to the table
     // to ensure that everything was sent correctly
-    return db.query(queryText, [Number(id), Number(details.class), message])
-      .then((results) => results.rows[0]);
+    return db.query(queryText, [studentId, classId, message]).then((results) => results.rows[0]);
   }
 
   static getStudentById(id) {

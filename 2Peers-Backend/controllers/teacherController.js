@@ -46,10 +46,11 @@ const patchUser = async (req, res) => {
 
 const postMessage = async (req, res) => {
   const { id } = req.params;
-  const { message } = req.body;
-  const classId = req.body.class;
+  const createdMessage = req.body.body.message;
+  const classId = req.body.body.classId;
   try {
-    const newMessage = await Teacher.addMessage(id, classId, message);
+    const newMessage = await Teacher.addMessage(id, classId, createdMessage);
+    console.log(newMessage)
     res.status(200).json(newMessage);
   } catch {
     res.sendStatus(500);

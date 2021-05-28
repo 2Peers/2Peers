@@ -1,37 +1,44 @@
 import PropTypes from 'prop-types';
+import socketClient from 'socket.io-client';
+import Axios from 'axios';
 import { React, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export default function MakeMessage({ update, userId, isStudent }) {
+export default function MakeMessage({ userId, isStudent, update }) {
   const [message, setMessage] = useState('');
   const { id } = useParams();
 
   const sendMessage = async (e) => {
     e.preventDefault();
-
     const options = {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'POST',
-      body: JSON.stringify({
+      body: {
         message,
-        class: id,
-      }),
+        classId: id,
+      },
     };
+    let SERVER;
     if (isStudent) {
-      // make a post request
-      // Once the sign in logic is merged in, replace the 1
-      // in the fetch request below with the student id
-      // also do a check if it's a teacher to post to a different url
-      await fetch(`http://localhost:3000/student/${userId}/message`, options);
+      console.log(userId);
+      SERVER = Axios.post(`/student/${userId}/message`, options);
     } else {
       console.log(userId);
-      await fetch(`http://localhost:3000/teachers/${userId}/message`, options);
+      SERVER = Axios.post(`/teachers/${userId}/message`, options);
+    }
+    const socket = socketClient(SERVER);
+    if (message) {
+      socket.on('message', () => {
+        console.log('sending messages');
+        socket.send(`message: ${message}`);
+        e.target.value = '';
+        update();
+      });
     }
 
     setMessage('');
-    update();
   };
 
   return (

@@ -11,6 +11,7 @@ function TwoPeersProvider({ children }) {
     Axios.get('/api')
       .then((fetchData) => setData(fetchData.data.passedData));
   }, []);
+  console.log(data);
 
   const [userName, setName] = useState('');
   const [userEmail, setEmail] = useState('');
@@ -28,7 +29,7 @@ function TwoPeersProvider({ children }) {
       checkbox,
     };
     Axios.post('/signup', credentials);
-    history.push('/login');
+    history.push('login');
   }
 
   function SignIn(e) {

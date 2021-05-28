@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import TwoPeersContext from '../context/TwoPeersContext';
 import MakeMessage from './MakeMessage';
@@ -7,7 +7,6 @@ import Message from './Message';
 
 function Classroom() {
   const info = useContext(TwoPeersContext).data;
-  console.log(info);
   const infoCheck = () => {
     if (info.user) {
       if (info.checkbox) {
@@ -17,9 +16,7 @@ function Classroom() {
     }
     return '';
   };
-  // const userId = lastUrl.split('/')[2];
-  // const isStudent = (lastUrl.split('/')[1] === 'students');
-  // console.log(userId, isStudent);
+
   const { id } = useParams();
   const [classHeading, setClassHeading] = useState('');
   const [messages, setMessages] = useState([]);
@@ -35,15 +32,9 @@ function Classroom() {
       });
   };
 
-  const checkMessages = () => {
-    getMessages();
-    setTimeout(checkMessages, 5000);
-  };
-
   useEffect(async () => {
     getMessages();
-    checkMessages();
-  }, [id]);
+  }, []);
 
   return (
     <div className="classroom w-full">

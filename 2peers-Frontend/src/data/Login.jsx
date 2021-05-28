@@ -63,7 +63,7 @@ function Login() {
           <div className="flex items-center justify-between">
             <div className="flex items-center">Dont have an account?</div>
             <div className="text-sm">
-              <Link data-testid="signup-link" to="/signUp">
+              <Link data-testid="signup-link" to="/signup">
                 <p className="font-medium text-indigo-600 hover:text-indigo-500">Sign up here!</p>
               </Link>
             </div>
