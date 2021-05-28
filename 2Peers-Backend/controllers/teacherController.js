@@ -39,7 +39,6 @@ const patchUser = async (req, res) => {
   // debugger;
   try {
     const user = await Teacher.patchUser(id, name, email, files);
-    console.log(user);
     res.status(200).json(user);
   } catch {
     res.sendStatus(500);

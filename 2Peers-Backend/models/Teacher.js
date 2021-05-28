@@ -2,7 +2,6 @@ const db = require('../database/db');
 
 class Teacher {
   static signUp(body) {
-    debugger;
     const queryTeacher = 'INSERT INTO teachers (name, email, profilepic, encryptedpassword, archived) VALUES ($1, $2, $3, $4, $5)';
     const teacherPic = 'https://i.pinimg.com/originals/56/b4/9f/56b49f8fe357deecf54ad7805209d79e.png';
     const archived = false;
