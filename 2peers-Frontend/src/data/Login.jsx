@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import TwoPeersContext from '../context/TwoPeersContext';
+import Footer from '../Reusable/Footer';
 
 function Login() {
   const {
@@ -76,6 +77,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
