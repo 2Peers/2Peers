@@ -34,7 +34,7 @@ export default function Classlist({ isStudent, ...props }) {
   };
 
   return (
-    <div className="classList m-8 w-9/12">
+    <div className="classList m-6 w-9/12">
       <div className="heading text-gray-900 font-bold text-xl m-6 flex justify-between items-center">
         <h1 className="mx-8">Classes</h1>
         <button onClick={() => displaySwitch(true)} className="bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-400 hover:border-transparent rounded" type="button">Add Class</button>

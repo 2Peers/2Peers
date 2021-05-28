@@ -103,27 +103,30 @@ export default function Profile({ isStudent, ...props }) {
   // ));
 
   return (
-    <div className="profile-container w-11/12 my-8 rounded shadow-lg flex justify-start">
-      <div className="prof-img h-40 w-1/4 p-8">
-        <img src={pic} alt="profile pic" />
+    <>
+      <div className="flex flex-col text-center w-full mt-5">
+        <h2 className="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">{isStudent ? 'STUDENT PAGE' : 'TEACHER PAGE'}</h2>
       </div>
-      <div className="w-9/12">
-        <div className="flex flex-col">
-          <p className="text-gray-900 font-bold text-xl mb-2">
-            {name}
-          </p>
-          <p className="text-gray-700 text-base">
-            {email}
-          </p>
+      <div className="container my-24">
+        <div>
+          <div className="bg-white relative shadow-xl w-5/6 md:w-4/6  lg:w-3/6 xl:w-2/6 mx-auto">
+            <div className="flex justify-center">
+              <img src={pic} alt="pic" className="rounded-full mx-auto absolute -top-20 w-32 h-32 shadow-2xl border-4 border-white" />
+            </div>
+            <div className="mt-16">
+              <h1 className="font-bold text-center text-3xl text-gray-900">{name}</h1>
+              <p className="text-center text-sm text-gray-400 font-medium">{email}</p>
+              <div className="flex justify-center my-5">
+                <button type="button" onClick={() => { setEdit((prev) => !prev); }} className="mx-3 bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-400 hover:border-transparent rounded">Edit</button>
+                <button onClick={() => { setArchive((prev) => !prev); }} type="button" className="mx-3 bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-400 hover:border-transparent rounded">Delete</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="user-btns py-5 flex w-3/12 justify-around">
-          <button type="button" onClick={() => { setEdit((prev) => !prev); }} className="mx-3 bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-400 hover:border-transparent rounded">Edit</button>
-          <button onClick={() => { setArchive((prev) => !prev); }} type="button" className="mx-3 bg-transparent hover:bg-green-400 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-400 hover:border-transparent rounded">Delete</button>
-        </div>
+        { returnEdit() }
+        { returnArchive() }
       </div>
-      { returnEdit() }
-      { returnArchive() }
-    </div>
+    </>
   );
 }
 
